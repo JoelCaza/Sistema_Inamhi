@@ -1,0 +1,53 @@
+<!-- model_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Inventario</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS for additional styling */
+        body {
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+        }
+        .btn-create {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-4">Sistema de Inventario</h1>
+        <a href="{% url 'model_create' %}" class="btn btn-primary btn-create">Añade</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre de Inventario</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for model in models %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ model.name }}</td>
+                    <td>
+                        <a href="{% url 'model_detail' pk=model.pk %}" class="btn btn-sm btn-info">Ver</a>
+                        <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+   
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

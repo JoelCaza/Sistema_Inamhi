@@ -1,0 +1,36 @@
+<!-- model_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Acualizar {% else %}Crear{% endif %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS for additional styling */
+        body {
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+        }
+        .btn-save {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'model_list' %}" class="btn btn-secondary btn-actions">Regresar</a>
+        <h1 class="mt-5 mb-4">{% if form.instance.pk %}Actualizar{% else %}Create Model{% endif %}</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-primary btn-save" value="Save">
+        </form>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
