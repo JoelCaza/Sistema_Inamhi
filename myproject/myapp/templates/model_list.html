@@ -11,6 +11,7 @@
         /* Custom CSS for additional styling */
         body {
             padding: 20px;
+            align-items: center;
         }
         .container {
             max-width: 800px;
@@ -28,23 +29,56 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nombre de Inventario</th>
+                    <th scope="col">Codigo Bien</th>
+                    <th scope="col">Codigo Anterior</th>
+                    <th scope="col">Codigo Provisional</th>
+                    <th scope="col">Codigo Nuevo</th>
+                    <th scope="col">Nombre Bien</th>
+                    <th scope="col">Serie</th>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Color</th>
+                    <th scope="col">Material</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Ubicacion</th>
+                    <th scope="col">Cedula</th>
+                    <th scope="col">Custodio Actual</th>
+                    <th scope="col">Observacion</th>
                     <th scope="col">Acciones</th>
+                    
+
+                    
                 </tr>
             </thead>
             <tbody>
                 {% for model in models %}
-                <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{ model.name }}</td>
-                    <td>
-                        <a href="{% url 'model_detail' pk=model.pk %}" class="btn btn-sm btn-info">Ver</a>
-                        <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-sm btn-warning">Editar</a>
-                        <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
+        <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ model.codigo_bien }}</td>
+                <td>{{ model.codigo_anterior }}</td>
+                <td>{{ model.codigo_provisional }}</td>
+                <td>{{ model.codigo_nuevo }}</td>
+                <td>{{ model.nombre_bien }}</td>
+                <td>{{ model.serie }}</td>
+                <td>{{ model.modelo }}</td>
+                <td>{{ model.marca }}</td>
+                <td>{{ model.color }}</td>
+                <td>{{ model.material }}</td>
+                <td>{{ model.estado }}</td>
+                <td>{{ model.ubicacion }}</td>
+                <td>{{ model.cedula }}</td>
+                <td>{{ model.custodio_actual }}</td>
+                <td>{{ model.observacion }}</td>
+                <td>
+                    <a href="{% url 'model_detail' pk=model.pk %}" class="btn btn-sm btn-info mr-1">Ver</a>
+                    <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-sm btn-warning mr-1">Editar</a>
+                    <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+                
+            </tr>
+{% endfor %}
+
+                
         </table>
     </div>
    <a href="{% url 'salir'%}">Cerrar Session</a>  
