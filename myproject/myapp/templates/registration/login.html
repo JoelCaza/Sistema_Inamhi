@@ -1,33 +1,27 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" src="../utilities/styles/style_login.css" type="text/css">
+    <title>Login</title>
+    <style> 
+    </style>
 </head>
 <body>
-    <!-- este es apra que me controle el proyecto  -->
     <main>
         <div class="contenedor_all"> 
-           
-                <h1>INAMHI </h1>
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="usuario">
-                        <input type="text" name="username">
-                            <label for="usuarioInput" class="usuarioLabel">Ingrese Usuario</label>
-                    </div>
-                    <div class="contrasena">
-                        <input type="password" name="password">
-                        
-                        <label for="contrasenaInput" class="contrasenaLabel">Ingrese Contraseña</label>
-                    </div>
-                    <div class="olvido"> ¿Olvidaste tu Contraseña?</div>
-
-                <button type="submit"> Entrar </button>
-                </form>
+            <h1 class="inamhi"><span>I</span><span>N</span><span>A</span><span>M</span><span>H</span><span>I</span></h1>
+            <form method="post">
+                
+                <div class="usuario">
+                    <input type="text" name="username" placeholder="Ingrese Usuario">
+                </div>
+                <div class="contrasena">
+                    <input type="password" name="password" placeholder="Ingrese Contraseña">
+                </div>
+                <div class="olvido">¿Olvidaste tu Contraseña?</div>
+                <button type="submit">Entrar</button>
+            </form>
         </div>
     </main>
 </body>
