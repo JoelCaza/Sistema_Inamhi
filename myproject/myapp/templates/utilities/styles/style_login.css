@@ -1,0 +1,157 @@
+
+body{
+    background-image: url(../img/fondo_img.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family:sans-serif
+    
+}
+
+/* que me centre el contenido en el contenedor  */
+main{
+    width: 100%;
+    padding: 20px;
+    margin: auto;
+    margin-top: 100px;
+    height: 100vh;
+}
+.contenedor_all{
+    position: absolute;
+    /* para que me centre el contenido */
+   transform: translate(-50%, -50%);
+    background-color: rgba(114,79,152);
+    top: 40%;
+    left: 25%;
+    width: 400px; 
+    border-radius: 20px;
+    padding: 40px;
+    margin: 30px;
+}
+.contenedor_all h1{
+    text-align: center;
+    padding: 0 0 20px 0;
+    color: white;
+    font-size: 50px;
+}
+.contenedor_all form{
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+form .usuario{
+    position: relative;
+    border-bottom: 2px solid white;
+    margin: 30px 0;
+}
+.usuario input{
+    width: 100%;
+    border-radius: 10px;
+    padding: 0 5px;
+    height: 30px;
+font-size: 16px;
+border: none;
+background: none;
+outline: none;
+}
+form .contrasena{
+    position: relative;
+    border-bottom: 2px solid white;
+    margin: 30px 0;
+}
+.contrasena input{
+    width: 100%;
+    border-radius: 15px;
+    padding: 0 5px;
+    height: 30px;
+    font-size: 16px;
+    border: none;
+    background: none;
+    outline: none;
+    
+   
+}
+.usuario label{
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    color: rgba(255, 255, 255, 0.67);
+    transform: translateY(-50%);
+    font-size: 20px;
+    pointer-events: none;
+    transition: .5s;
+}
+.contrasena label{
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    color: rgba(255, 255, 255, 0.67);
+    transform: translateY(-50%);
+    font-size: 20px;
+    pointer-events: none;
+    transition: .5s;
+}
+/* este s para la contraseña tenga movimiento  */
+.contrasena span::before{
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 0%;
+    width: 100%;
+    height: 2px;
+    background: red;
+ 
+}
+.contrasena input:focus ~ label,
+.contrasena input:focus ~ label{
+    top: -5px;
+    color: rgb(0, 0, 0);
+}
+.contrasena input:focus ~ span::before,
+.contrasena input:focus ~ span::before{
+    width: 100%;
+}
+/* para que la liena cambie de  un color a otro cuando se vaya a ingresar datos 
+ */
+ .usuario span::before{
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 0%;
+    width: 100%;
+    height: 2px;
+    background: red;
+ }
+ .usuario input:focus ~ label,
+ .usuario input:focus ~ label{
+    top: -5px;
+    color: rgb(0, 0, 0);
+ }
+ .usuario input:focus ~ span::before,
+ .usuario input:focus ~ span::before{
+    width: 100%;
+ }
+ .btn_entrar{
+    width: 100%;
+    height: 35px;
+    border-radius: 9px;
+    margin-top: 20px;
+    cursor: pointer;
+    border: none;
+    font-size: 15px;
+ }
+
+ .usuarioLabe.active{
+    top:-5px;
+    color: rgb(0, 0, 0);
+ }
+ .olvido{
+    margin: -5px 0 20px 5px;
+    color:rgb(255, 255, 255);
+    font-size: 15px;
+    cursor: pointer;
+ }
