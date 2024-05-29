@@ -156,8 +156,11 @@ button:hover {
                 </tbody>
             </table>
             <div class="button-container">
-                <button type="submit">Guardar</button>
-                <button type="submit">Regresar</button>
+                <form method="post">
+                    <input type="submit" class="btn btn-primary btn-save" value="Save">
+                </form>
+                <a href="{% url 'model_list' %}" class="btn btn-secondary btn-actions">Regresar</a>
+
             </div>
             
         </form>
