@@ -42,7 +42,7 @@ def model_update(request, pk):
             return redirect('model_list')
     else:
         form = MyModelForm(instance=model)
-    return render(request, 'model_form.html', {'form': form})
+    return render(request, 'actualizar.html', {'form': form})
 
 
 def model_confirm_delete(request, pk):
