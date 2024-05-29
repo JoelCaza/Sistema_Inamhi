@@ -3,10 +3,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import MyModel
 from .forms import MyModelForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
-@login_required
-def index(request):
-    return render(request,plantilla/base.html)
+
 
 # @login_required llama al login antes de que entre a el siguiente metodo
 @login_required
@@ -14,6 +13,9 @@ def model_list(request): # vista del crud
     models = MyModel.objects.all()
     return render(request, 'model_list.html', {'models': models})
 
+def salir(request):
+    logout(request)
+    return redirect('/')
 
 def model_detail(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
