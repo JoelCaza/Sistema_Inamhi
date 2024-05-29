@@ -7,17 +7,23 @@ body {
     justify-content: center;
     align-items: center;
     height: 100;
-    background: linear-gradient(rgb(69, 84, 124), rgb(49, 64, 68));
+    background-image: url('imagenes/volcan.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;  
+    
 
 }
 
 .container {
-    background-color: #fff;
+    
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
     box-shadow: 0 0 10px rgba(97, 11, 11, 0.1);
     border-radius: 8px;
     width: 900px;
     overflow: hidden;
+    
 }
 
 table {
@@ -30,11 +36,17 @@ th, td {
     border: 1px solid #ddd;
     padding: 5px;
     text-align: left;
+    
 }
 
 th {
+    background-color: rgba(242, 242, 242, 0.8);
     background-color: #f2f2f2;
     font-weight: bold;
+}
+
+.column-small {
+    width: 100px; /* Ajusta este valor para reducir el ancho de la primera columna */
 }
 
 input[type="text"] {
