@@ -9,25 +9,160 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Custom CSS for additional styling */
-        body {
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-        }
-        .btn-save {
-            margin-top: 10px;
-        }
+        /* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 50px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100;
+    background-image: url('imagenes/volcan.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;  
+    
+
+}
+
+.container {
+    
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(97, 11, 11, 0.1);
+    border-radius: 8px;
+    width: 900px;
+    overflow: hidden;
+    
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 5px;
+    text-align: left;
+    
+}
+
+th {
+    background-color: rgba(242, 242, 242, 0.8);
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.column-small {
+    width: 100px; /* Ajusta este valor para reducir el ancho de la primera columna */
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="{% url 'model_list' %}" class="btn btn-secondary btn-actions">Regresar</a>
-        <h1 class="mt-5 mb-4">{% if form.instance.pk %}Actualizar{% else %}Create Model{% endif %}</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" class="btn btn-primary btn-save" value="Save">
+        <form id="data-form">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        
+                        <th>Descripcion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Columnas para el ingreso de datos -->
+                    <tr>
+                        <td><label type="text"> Código del Bien Esbye</td>
+                        <td><input type="text" name="fila1" id="1"></td>
+                    </tr>
+                    <tr>
+                        <td><label type="text" > Código Anterior</td>
+                            <td><input type="text" name="fila2" id="2"></td>
+                    </tr>
+                    <tr>
+                        <td><label type="text" > Código Provisional </td>
+                            <td><input type="text" name="fila3" id="3"></td>
+                    </tr> <tr>
+                        <td><label type="text" > Código Nuevo</td>
+                            <td><input type="text" name="fila4" id="4"></td>
+                    </tr> <tr>
+                        <td><label type="text" > Nombre del bien</td>
+                            <td><input type="text" name="fila5" id="5"></td>
+                    </tr> <tr>
+                        <td><label type="text"> Serie</td>
+                            <td><input type="text" name="fila6" id="6"></td>
+                    </tr> <tr>
+                        <td><label type="text" > Modelo</td>
+                            <td><input type="text" name="fila7" id="7"></td>                  </tr>
+                    <tr>
+                        <td><label type="text" > Marca </td>
+                            <td><input type="text" name="fila8" id="8"></td>
+                    </tr> <tr>
+                        <td><label type="text" > Color </td>
+                            <td><input type="text" name="fila9" id="9"></td>
+                    </tr> <tr>
+                        <td><label type="text" > Material</td>
+                            <td><input type="text" name="fila10" id="10"></td>
+                    </tr> <tr>
+                        <td><label type="text" > Estado</td>
+                            <td><input type="text" name="fila11" id="11"></td>
+                    </tr> <tr>
+                        <td><label type="text" > Ubicacion</td>
+                            <td><input type="text" name="fila12" id="12"></td>
+                    </tr>                    <tr>
+                        <td><label type="text" > Cédula Custodio </td>
+                            <td><input type="text" name="fila13" id="13"></td>
+                    </tr> <tr>
+                        <td><label type="text"> Custodio Actual</td>
+                            <td><input type="text" name="fila14" id="14"></td>
+                    </tr> <tr>
+                        <td><label type="text" > Observación</td>
+                            <td><input type="text" name="fila15" id="15"></td>
+                    </tr>                      
+                </tbody>
+            </table>
+            <div class="button-container">
+                <form method="post">
+                    <input type="submit" class="btn btn-primary btn-save" value="Save">
+                </form>
+                <a href="{% url 'model_list' %}" class="btn btn-secondary btn-actions">Regresar</a>
+
+            </div>
+            
         </form>
     </div>
 
