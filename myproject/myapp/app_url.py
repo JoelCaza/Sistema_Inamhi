@@ -11,6 +11,7 @@ urlpatterns = [
     path('<int:pk>/update/', views.model_update, name='model_update'),
     path('<int:pk>/delete/', views.model_delete, name='model_delete'),
     path('<int:pk>/delete/confirm/', views.model_confirm_delete, name='model_confirm_delete'),
+    path('salir/', views.salir, name="salir")
 
 ]
 
