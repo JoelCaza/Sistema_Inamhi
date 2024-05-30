@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login y Registro</title>
     <!-- <link rel="stylesheet" type="text/css" href="{% static '../registration/utilities/styles/style_login.css' %}"> -->
-    <link rel="stylesheet" type="text/css" href='{% static  "/styles/style_login.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static  "/styles/style_login.css" %}'> '{% static ""%}'
 </head>
 <body>
   
@@ -20,7 +20,7 @@
                 <!-- <h3>¿Ya estas REgistrado?</h3> -->
                 <!-- <p> Ingrese Usuario y contraseñapara ingresar  </p> -->
                 <!-- <button id="btn_inicio">Iniciar Sesion</button> -->
-                <!-- <img src="../registration/utilities/img/NuevoEcuador.png" alt=""> -->
+               <img src='{% static  "/img/INAMHI.png" %}' alt="">
             </div>
             <!-- //esta es la caja trasera del registro  -->
             <div class="caja__trasera-registro">
@@ -35,11 +35,14 @@
             <form method="post">
                 {% csrf_token %}
                 <h2>INAMHI</h2>
+
                 <label for="usuario"> </label>
                 <input type="text" name="username" placeholder="Usuario">
                 <label for="pass"> </label>
                 <input type="password" name="password" placeholder="Contraseña">
-                <button type="submit">Iniciar sesión</button>
+                <button type="submit">Entrar</button>
+
+
             </form>
             <!-- sformulario del registro  -->
             <form class="formulario__registro">
