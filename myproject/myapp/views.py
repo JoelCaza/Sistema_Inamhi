@@ -26,6 +26,18 @@ def model_create(request):
     if request.method == 'POST':
         form = MyModelForm(request.POST)
         if form.is_valid():
+            # Obtiene los datos del formulario
+            cleaned_data = form.cleaned_data
+
+            # Iterar sobre los campos y establecer "VACÍO" para los campos vacíos
+            for field_name, field_value in cleaned_data.items():
+                if not field_value: 
+                    # Si el campo está vacío te muestra un mensaje de VACIO
+                    cleaned_data[field_name] = 'VACÍO'
+
+            # Crear una nueva instancia del formulario con los datos modificados
+            form = MyModelForm(cleaned_data)
+
             form.save()
             return redirect('model_list')
     else:
