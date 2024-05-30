@@ -1,3 +1,4 @@
+{% load static %}
 <!-- model_list.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -7,27 +8,16 @@
     <title>Sistema de Inventario</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Custom CSS for additional styling */
-        body {
-            padding: 20px;
-            align-items: center;
-        }
-        .container {
-            max-width: 1900px;
-            align-items: center;
-            flex: 1;
+    <link rel="stylesheet" type="text/css" href='{% static  "/styles/model_list.css" %}'>
 
-        }
-        .btn-create {
-            margin-bottom: 10px;
-        }
-    </style>
+
 </head>
 <body>
     <div class="container">
+        <a href="{% url 'salir'%}"><button class="btn btn-xl btn-danger mr-1"> Cerrar Sesion</button> </a>
         <h1 class="mt-5 mb-4">Sistema de Inventario</h1>
         <a href="{% url 'model_create' %}" class="btn btn-primary btn-create">Añade</a>
+        
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -84,7 +74,7 @@
                 
         </table>
     </div>
-   <a href="{% url 'salir'%}">Cerrar Session</a>  
+   
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
