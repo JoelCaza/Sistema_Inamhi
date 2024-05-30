@@ -23,9 +23,8 @@
 <body>
     <div class="container">
         <h1 class="mt-5 mb-4">Confirm Delete</h1>
-        <p>Are you sure you want to delete "{{ model.name }}"?</p>
+        <p>Are you sure you want to delete</p>
         <form action="{% url 'model_delete' pk=model.pk %}" method="post">
-            {% csrf_token %}
             <input type="submit" class="btn btn-danger btn-actions" value="Delete">
             <a href="{% url 'model_list' %}" class="btn btn-secondary btn-actions">Cancel</a>
         </form>

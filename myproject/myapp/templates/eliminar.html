@@ -9,13 +9,16 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #ffffff;
+            background-image: url('imagenes/textura.webp');
+            background-size: cover;
+            background-position: center;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
         }
 
         h1 {
@@ -73,7 +76,7 @@
 
 <body>
     <div class="container">
-        <h1>Tabla con búsqueda y eliminación</h1>
+        <h1>Tabla Con Búsqueda y Eliminación</h1>
         <input type="text" id="busqueda" placeholder="Buscar...">
         <table id="tabla">
             <thead>
@@ -87,37 +90,59 @@
                 <tr>
                     <td>1</td>
                     <td>John Doe</td>
-                    <td><button onclick="eliminarFila(this)">Eliminar</button></td>
+                    <td><button onclick="confirmarEliminar(this)">Eliminar</button></td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Jane Smith</td>
-                    <td><button onclick="eliminarFila(this)">Eliminar</button></td>
+                    <td>Luis Gonzalez</td>
+                    <td><button onclick="confirmarEliminar(this)">Eliminar</button></td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td>Paul Santana</td>
-                    <td><button onclick="eliminarFila(this)">Eliminar</button></td>
+                    <td>Marco Rodriguez</td>
+                    <td><button onclick="confirmarEliminar(this)">Eliminar</button></td>
                 </tr>
                 <tr>
                     <td>4</td>
-                    <td>Saul Rosero</td>
-                    <td><button onclick="eliminarFila(this)">Eliminar</button></td>
+                    <td>Nikol Peña</td>
+                    <td><button onclick="confirmarEliminar(this)">Eliminar</button></td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td>Omar Lara</td>
-                    <td><button onclick="eliminarFila(this)">Eliminar</button></td>
+                    <td>Jhon Fuentes</td>
+                    <td><button onclick="confirmarEliminar(this)">Eliminar</button></td>
                 </tr>
+
             </tbody>
         </table>
     </div>
 
     <script>
+        function confirmarEliminar(button) {
+            // Mostrar un mensaje de confirmación antes de eliminar
+            if (confirm("¿Está seguro que desea eliminar este registro?")) {
+                eliminarFila(button);
+            }
+        }
+
         function eliminarFila(button) {
             var fila = button.parentNode.parentNode;
+            var id = fila.cells[0].innerText;
             fila.parentNode.removeChild(fila);
+            var eliminados = JSON.parse(localStorage.getItem("eliminados")) || [];
+            eliminados.push(id);
+            localStorage.setItem("eliminados", JSON.stringify(eliminados));
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var eliminados = JSON.parse(localStorage.getItem("eliminados")) || [];
+            eliminados.forEach(function (id) {
+                var fila = document.querySelector("td:first-child").innerText;
+                if (fila) {
+                    fila.parentNode.style.display = "none";
+                }
+            });
+        });
 
         document.getElementById("busqueda").addEventListener("keyup", function () {
             var texto = this.value.toLowerCase();
@@ -125,13 +150,20 @@
             var filas = tabla.getElementsByTagName("tr");
             for (var i = 0; i < filas.length; i++) {
                 var textoFila = filas[i].textContent.toLowerCase();
-                if (textoFila.includes(texto)) {
+                var id = filas[i].cells[0].innerText;
+                if (textoFila.includes(texto) && !filaEliminada(id)) {
                     filas[i].style.display = "";
                 } else {
                     filas[i].style.display = "none";
                 }
             }
         });
+
+        function filaEliminada(id) {
+            var eliminados = JSON.parse(localStorage.getItem("eliminados")) || [];
+            return eliminados.includes(id);
+        }
     </script>
 </body>
 </html>
+
