@@ -32,12 +32,14 @@
             <!-- contenedor de los formularios -->
         <div class="contenedor__login-register">
             <!-- formulario de inicio de sesion  -->
-            <form action="" class="formulario__login">
-
+            <form method="post">
+                {% csrf_token %}
                 <h2>INAMHI</h2>
-                <input type="text" placeholder="Usuario" name="usuario">
-                <input type="password" placeholder="Contraseña" name="contrasena">
-                <button>entrar</button>
+                <label for="usuario"> </label>
+                <input type="text" name="username" placeholder="Usuario">
+                <label for="pass"> </label>
+                <input type="password" name="password" placeholder="Contraseña">
+                <button type="submit">Iniciar sesión</button>
             </form>
             <!-- sformulario del registro  -->
             <form class="formulario__registro">
@@ -59,5 +61,18 @@
 </main>
 <!-- para vincular con el javascript -->
 <!-- <script src="../templates/utilities/logica/logica_uc.js"></script> -->
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar sesión</title>
+</head>
+<body>
+
+
+
 </body>
 </html>
