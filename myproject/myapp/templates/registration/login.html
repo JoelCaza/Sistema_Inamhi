@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login y Registro</title>
     <!-- <link rel="stylesheet" type="text/css" href="{% static '../registration/utilities/styles/style_login.css' %}"> -->
-    <link rel="stylesheet" type="text/css" href='{% static  "/styles/style_login.css" %}'> '{% static ""%}'
+    <link rel="stylesheet" type="text/css" href='{% static  "/styles/style_login.css" %}'> 
 </head>
 <body>
   
@@ -20,7 +20,7 @@
                 <!-- <h3>¿Ya estas REgistrado?</h3> -->
                 <!-- <p> Ingrese Usuario y contraseñapara ingresar  </p> -->
                 <!-- <button id="btn_inicio">Iniciar Sesion</button> -->
-               <img src='{% static  "/img/INAMHI.png" %}' alt="">
+               <img src='{% static  "/img/icono-inamhi.png" %}' alt="">
             </div>
             <!-- //esta es la caja trasera del registro  -->
             <div class="caja__trasera-registro">
@@ -37,9 +37,9 @@
                 <h2>INAMHI</h2>
 
                 <label for="usuario"> </label>
-                <input type="text" name="username" placeholder="Usuario">
+                <input type="text" name="username" placeholder="Usuario" required>
                 <label for="pass"> </label>
-                <input type="password" name="password" placeholder="Contraseña">
+                <input type="password" name="password" placeholder="Contraseña" required>
                 <button type="submit">Entrar</button>
 
 
@@ -67,15 +67,4 @@
 </body>
 </html>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Iniciar sesión</title>
-</head>
-<body>
 
-
-
-</body>
-</html>

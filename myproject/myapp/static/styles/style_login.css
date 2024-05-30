@@ -51,8 +51,8 @@ main{
     border-radius: 15px;
 }
 .caja_trasera img{
-    transform: translateX(69%);
-    width: 80%;
+    transform: translateX(95%);
+    width: 60%;
     margin-top: -50px;
   
 }
