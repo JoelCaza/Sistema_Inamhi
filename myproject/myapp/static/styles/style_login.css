@@ -30,6 +30,14 @@ main{
     /* posicion para que los elementos se relacion con el  */
     position: relative;
 }
+.contenedor_login_register form{
+    width: 100%;
+    /* ancho maximo  */
+    max-width: 800px;
+    margin:auto;
+    /* posicion para que los elementos se relacion con el  */
+    position: relative;
+}
 /* la caja del fondo  */
 .caja_trasera{
     width: 100%;
