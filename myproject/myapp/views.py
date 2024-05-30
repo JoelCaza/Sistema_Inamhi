@@ -4,6 +4,8 @@ from .models import MyModel
 from .forms import MyModelForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.contrib import messages
+
 
 
 
@@ -42,7 +44,10 @@ def model_update(request, pk):
             return redirect('model_list')
     else:
         form = MyModelForm(instance=model)
+        #ingreso del actualizar.html para que se llame al lugar de atudalizar
     return render(request, 'actualizar.html', {'form': form})
+    #retorna a un html que preguntara si desea actualizar o no
+    return redirect('model_confirm_actualizar.html', pk=pk)
 
 
 def model_confirm_delete(request, pk):
