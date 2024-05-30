@@ -4,168 +4,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if form.instance.pk %}Acualizar {% else %}Crear{% endif %}</title>
+    <title>{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Custom CSS for additional styling */
-        /* styles.css */
-body {
-    font-family: Arial, sans-serif;
-    margin: 50px;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100;
-    background-image: url('imagenes/volcan.jpg'); 
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat;  
-    
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('imagenes/volcan.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(97, 11, 11, 0.1);
+            border-radius: 8px;
+            max-width: 90%;
+            margin: auto;
 
-}
-
-.container {
-    
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(97, 11, 11, 0.1);
-    border-radius: 8px;
-    width: 900px;
-    overflow: hidden;
-    
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 5px;
-    text-align: left;
-    
-}
-
-th {
-    background-color: rgba(242, 242, 242, 0.8);
-    background-color: #f2f2f2;
-    font-weight: bold;
-}
-
-.column-small {
-    width: 100px; /* Ajusta este valor para reducir el ancho de la primera columna */
-}
-
-input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
+            
+            overflow: hidden;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 5px;
+            text-align: left;
+        }
+        th {
+            background-color: rgba(242, 242, 242, 0.8);
+            font-weight: bold;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <form id="data-form">
+        <form method="post">
+            {% csrf_token %}
             <table>
                 <thead>
                     <tr>
                         <th></th>
-                        
-                        <th>Descripcion</th>
+                        <th>Descripción</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Columnas para el ingreso de datos -->
                     <tr>
-                        <td><label type="text"> Código del Bien Esbye</td>
-                        <td><input type="text" name="fila1" id="1"></td>
+                        <td><label for="id_codigo_bien">Código del Bien Esbye</label></td>
+                        <td>{{ form.codigo_bien }}</td>
                     </tr>
                     <tr>
-                        <td><label type="text" > Código Anterior</td>
-                            <td><input type="text" name="fila2" id="2"></td>
+                        <td><label for="id_codigo_anterior">Código Anterior</label></td>
+                        <td>{{ form.codigo_anterior }}</td>
                     </tr>
                     <tr>
-                        <td><label type="text" > Código Provisional </td>
-                            <td><input type="text" name="fila3" id="3"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Código Nuevo</td>
-                            <td><input type="text" name="fila4" id="4"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Nombre del bien</td>
-                            <td><input type="text" name="fila5" id="5"></td>
-                    </tr> <tr>
-                        <td><label type="text"> Serie</td>
-                            <td><input type="text" name="fila6" id="6"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Modelo</td>
-                            <td><input type="text" name="fila7" id="7"></td>                  </tr>
+                        <td><label for="id_codigo_provisional">Código Provisional</label></td>
+                        <td>{{ form.codigo_provisional }}</td>
+                    </tr>
                     <tr>
-                        <td><label type="text" > Marca </td>
-                            <td><input type="text" name="fila8" id="8"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Color </td>
-                            <td><input type="text" name="fila9" id="9"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Material</td>
-                            <td><input type="text" name="fila10" id="10"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Estado</td>
-                            <td><input type="text" name="fila11" id="11"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Ubicacion</td>
-                            <td><input type="text" name="fila12" id="12"></td>
-                    </tr>                    <tr>
-                        <td><label type="text" > Cédula Custodio </td>
-                            <td><input type="text" name="fila13" id="13"></td>
-                    </tr> <tr>
-                        <td><label type="text"> Custodio Actual</td>
-                            <td><input type="text" name="fila14" id="14"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Observación</td>
-                            <td><input type="text" name="fila15" id="15"></td>
-                    </tr>                      
+                        <td><label for="id_codigo_nuevo">Código Nuevo</label></td>
+                        <td>{{ form.codigo_nuevo }}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_nombre_bien">Nombre del bien</label></td>
+                        <td>{{ form.nombre_bien }}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_serie">Serie</label></td>
+                        <td>{{ form.serie }}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_modelo">Modelo</label></td>
+                        <td>{{ form.modelo }}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_marca">Marca</label></td>
+                        <td>{{ form.marca }}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_color">Color</label></td>
+                        <td>{{ form.color }}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_material">Material</label></td>
+                        <td>{{ form.material }}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_estado">Estado</label></td>
+                        <td>{{ form.estado }}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_ubicacion">Ubicación</label></td>
+                        <td>{{ form.ubicacion }}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_cedula">Cédula Custodio</label></td>
+                        <td>{{ form.cedula }}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_custodio_actual">Custodio Actual</label></td>
+                        <td>{{ form.custodio_actual }}</td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_observacion">Observación</label></td>
+                        <td>{{ form.observacion }}</td>
+                    </tr>
                 </tbody>
             </table>
             <div class="button-container">
-                <form method="post">
-                    <input type="submit" class="btn btn-primary btn-save" value="Save">
-                </form>
+                <input type="submit" class="btn btn-primary btn-save" value="Save">
                 <a href="{% url 'model_list' %}" class="btn btn-secondary btn-actions">Regresar</a>
-
             </div>
-            
         </form>
     </div>
-
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
