@@ -121,6 +121,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'myapp/static/styles'),
+    os.path.join(BASE_DIR, 'myapp/static/img'),
 ]
 
 # Default primary key field type
