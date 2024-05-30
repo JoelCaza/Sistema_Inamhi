@@ -16,13 +16,13 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-image: url('imagenes/volcan.jpg');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
+            
+            
         }
         .container {
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(138, 135, 135, 0.8);
             padding: 20px;
             box-shadow: 0 0 10px rgba(97, 11, 11, 0.1);
             border-radius: 8px;
@@ -34,6 +34,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
+            
             
         }
         th, td {
@@ -48,20 +49,10 @@
         .button-container {
             display: flex;
             justify-content: center;
-            align-items: center;
-            width: 100%;
+            align-items: center;            
         }
-        button {
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #0056b3;
+        label {
+            color: #000000; 
         }
     </style>
 </head>
@@ -141,9 +132,13 @@
             </table>
             <div class="button-container">
                 <input type="submit" class="btn btn-primary btn-save" value="Guardar">
-                <a href="{% url 'model_list' %}" class="btn btn-secondary btn-actions">Regresar</a>
+                <a href="{% url 'model_list' %}" class="btn btn-primary btn-actions">Regresar</a>
             </div>
+            
         </form>
+        <div id="mensaje-exito" style="display: none;" class="alert alert-success">
+            Registro añadido exitosamente.
+        </div>
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
