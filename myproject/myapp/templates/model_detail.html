@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,46 +7,7 @@
     <title>Detalle De Bien</title>
     
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-    
-        body {
-            padding-top: 20px;
-            background-color: #2d2d93; /* Color de fondo */
-        }
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-        }
-        .card {
-            width: 100%;
-            max-width: 600px;
-            padding: 30px;
-            border-radius: 50px;
-            box-shadow: 0 0 100px rgba(0,0,0,0.1); /* Sombra */
-            background-color: #fff; /* Color de fondo de la tarjeta */
-        }
-        .card-title {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333; /* Color del título */
-        }
-        .btn-actions {
-            margin-top: 10px;
-            width: 100%;
-            font-size: 18px;
-            border-radius: 10px;
-            padding: 10px 0;
-            font-size: large;
-            font-weight:bolder;
-        }
-        .btn-container {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href='{% static  "/styles/model_detail.css" %}'>
 </head>
 <body>
     <div class="container">
