@@ -77,6 +77,7 @@ def model_delete(request, pk):
         return redirect('model_list')
     return redirect('model_confirm_delete', pk=pk)
 
+#Exportacion de EXCEL
 def export_to_excel(request):
     queryset = MyModel.objects.all()
 
@@ -101,7 +102,7 @@ def export_to_excel(request):
 
     return response
 
-
+#EXPORTA EL PDF
 def export_to_pdf(request):
     queryset = MyModel.objects.all()
 
@@ -124,44 +125,37 @@ def export_to_pdf(request):
     for item in queryset:
         data.append([getattr(item, col) for col in column_names])
 
+    # Calcular el ancho de la tabla en función del tamaño de la página
+    page_width, page_height = pdf.pagesize
+    available_width = page_width * 0.9  # Por ejemplo, el 90% del ancho de la página
+    column_width = available_width / len(column_names)
+
     # Crear la tabla en el PDF
-    table = Table(data)
+    table_data = []
+    for row in data:
+        table_row = []
+        for item in row:
+            adjusted_item = item[:50] + '...' if len(item) > 50 else item
+            table_row.append(Paragraph(adjusted_item, styles['Normal']))
+        table_data.append(table_row)
+
+    table = Table(table_data, colWidths=[column_width] * len(column_names))
 
     # Configurar estilos para la tabla
     style = TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.gray),
                         ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-                        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
                         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
                         ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
                         ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
                         ('GRID', (0, 0), (-1, -1), 1, colors.black)])
     table.setStyle(style)
 
-    # Ajustar columnas al ancho del PDF
-    table._argW[0] = 0.08 * pdf.pagesize[0]  # Ajusta la primera columna al 8% del ancho del PDF
-    for i in range(1, len(column_names)):
-        table._argW[i] = (1 - 0.08) * pdf.pagesize[0] / (len(column_names) - 1)  # Divide el resto del ancho equitativamente
-
-    # Tamaño de fuente relativo
-    style_body = styles['BodyText']
-    style_body.fontSize = font_size
-
-    # Aplicar estilo al contenido de la tabla
-    for i in range(len(data)):
-        for j in range(len(data[i])):
-            data[i][j] = Paragraph(data[i][j], style_body)
-
-    # Agregar la tabla al contenido del PDF
-    content = []
-    content.append(table)
-
     # Construir el PDF
-    pdf.build(content)
+    pdf.build([table])
 
     # Obtener el contenido del PDF como un HttpResponse
     pdf_response = HttpResponse(pdf_buffer.getvalue(), content_type='application/pdf')
     pdf_response['Content-Disposition'] = 'attachment; filename=Reporte.pdf'
 
     return pdf_response
-
-
