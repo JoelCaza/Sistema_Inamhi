@@ -1,0 +1,5 @@
+pip install openpyxl  
+ pip install io     
+ pip install reportlab   
+ pip install WeasyPrint
+ pip install xhtml2pdf
