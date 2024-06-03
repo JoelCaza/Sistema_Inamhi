@@ -4,77 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabla con búsqueda y eliminación</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url('imagenes/textura.webp');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-        }
-
-        h1 {
-            font-family: Arial, sans-serif;
-            color: #000;
-            text-align: left;
-        }
-
-        input[type="text"] {
-            padding: 8px;
-            margin-bottom: 10px;
-            width: 100%;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            background-color: #3498db;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            color: #fff;
-        }
-
-        th,
-        td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #2980b9;
-        }
-
-        tr:hover {
-            background-color: #2980b9;
-        }
-
-        button {
-            padding: 6px 10px;
-            background-color: #ff4444;
-            border: none;
-            color: #fff;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #cc0000;
-        }
-    </style>
+    <link rel="stylesheet" href="../static/styles/style_delete.css">
+ 
 </head>
 
 <body>
+    <img src="../static/img/icono-inamhi.png" alt="">
     <div class="container">
         <h1>Tabla Con Búsqueda y Eliminación</h1>
         <input type="text" id="busqueda" placeholder="Buscar...">
