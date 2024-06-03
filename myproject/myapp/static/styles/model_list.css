@@ -36,9 +36,9 @@ h1 {
 }
 
 .logout-btn {
-    position: absolute;
+    position:static;
     top: 20px;
-    right: 20px;
+    right: 10px;
 }
 
 .table-responsive {
