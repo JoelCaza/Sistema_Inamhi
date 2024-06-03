@@ -7,59 +7,26 @@
     <title>{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 50px;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-            
-            
-        }
-        .container {
-            background-color: rgba(138, 135, 135, 0.8);
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(97, 11, 11, 0.1);
-            border-radius: 8px;
-            max-width: 90%;
-            margin: auto;            
-            overflow: hidden;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            
-            
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 5px;
-            text-align: left;
-        }
-        th {
-            background-color: rgba(242, 242, 242, 0.8);
-            font-weight: bold;
-        }
-        .button-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;            
-        }
-        label {
-            color: #000000; 
-        }
-    </style>
+    <link rel="stylesheet" href="../static/styles/style_create.css">
+    
 </head>
-<body>
-    <div class="container">
+<body>   
+
+    <div class="header-image">
+        <img src="../static/img/icono-inamhi.png" alt="">
+    </div>
+        <div class="header-titles">
+            <h5> REPÚBLICA DEL ECUADOR </h5>
+            <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
+            <h5> REGISTRO DE CONSTATACIÓN FÍSICA DE BIENES 2024 </h5>
+        </div>
+    
+    
+
+    <div class="container">            
         <form method="post">
             {% csrf_token %}
+           
             <table>
                 <thead>
                     <tr>
@@ -131,15 +98,15 @@
                 </tbody>
             </table>
             <div class="button-container">
-                <input type="submit" class="btn btn-primary btn-save" value="Guardar">
-                <a href="{% url 'model_list' %}" class="btn btn-primary btn-actions">Regresar</a>
-            </div>
-            
+                <button class="btn btn-primary btn-save">Guardar</button>
+               <a href="{% url 'model_list' %}" class="btn btn-primary btn-actions">Regresar</a>
+            </div>            
         </form>
-        <div id="mensaje-exito" style="display: none;" class="alert alert-success">
-            Registro añadido exitosamente.
-        </div>
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    
+    
+    
 </body>
 </html>
