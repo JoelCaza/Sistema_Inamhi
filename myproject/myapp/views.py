@@ -93,7 +93,9 @@ def model_confirm_delete(request, pk):
 def model_delete(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
     if request.method == 'POST':
-        model.delete()
+        # Cambiar el estado_registro a False y guardar el objeto
+        model.estado_registro = False
+        model.save()
         return redirect('model_list')
     return redirect('model_confirm_delete', pk=pk)
 

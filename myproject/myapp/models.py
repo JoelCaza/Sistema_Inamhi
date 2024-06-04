@@ -16,6 +16,8 @@ class MyModel(models.Model):
     cedula = models.CharField(max_length=20, verbose_name='Cedula')
     custodio_actual = models.CharField(max_length=150, verbose_name='Custodio Actual')
     observacion = models.TextField(verbose_name='Observacion')
+    estado_registro = models.BooleanField(default=True, verbose_name='Estado de Registro')
+
 
     def __str__(self):
         return self.nombre_bien
