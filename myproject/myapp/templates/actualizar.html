@@ -1,77 +1,19 @@
+{% load static %}
+<!--Ingreso de el html actualizar-->
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario en Tabla</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Actualizar Modelo</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style_actualizar.css' %}">
 </head>
 <body>
     <div class="container">
-        <form id="data-form">
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        
-                        <th>Descripcion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Columnas para el ingreso de datos -->
-                    <tr>
-                        <td><label type="text"> Código del Bien Esbye</td>
-                        <td><input type="text" name="fila1" id="1"></td>
-                    </tr>
-                    <tr>
-                        <td><label type="text" > Código Anterior</td>
-                            <td><input type="text" name="fila2" id="2"></td>
-                    </tr>
-                    <tr>
-                        <td><label type="text" > Código Provisional </td>
-                            <td><input type="text" name="fila3" id="3"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Código Nuevo</td>
-                            <td><input type="text" name="fila4" id="4"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Nombre del bien</td>
-                            <td><input type="text" name="fila5" id="5"></td>
-                    </tr> <tr>
-                        <td><label type="text"> Serie</td>
-                            <td><input type="text" name="fila6" id="6"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Modelo</td>
-                            <td><input type="text" name="fila7" id="7"></td>                  </tr>
-                    <tr>
-                        <td><label type="text" > Marca </td>
-                            <td><input type="text" name="fila8" id="8"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Color </td>
-                            <td><input type="text" name="fila9" id="9"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Material</td>
-                            <td><input type="text" name="fila10" id="10"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Estado</td>
-                            <td><input type="text" name="fila11" id="11"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Ubicacion</td>
-                            <td><input type="text" name="fila12" id="12"></td>
-                    </tr>                    <tr>
-                        <td><label type="text" > Cédula Custodio </td>
-                            <td><input type="text" name="fila13" id="13"></td>
-                    </tr> <tr>
-                        <td><label type="text"> Custodio Actual</td>
-                            <td><input type="text" name="fila14" id="14"></td>
-                    </tr> <tr>
-                        <td><label type="text" > Observación</td>
-                            <td><input type="text" name="fila15" id="15"></td>
-                    </tr>                      
-                </tbody>
-            </table>
-            <div class="button-container">
-                <button type="submit">Añadir</button>
-            </div>
+        <h1>Actualizacion</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-sm btn-warning mr-1">Guardar</button>
+            <a href="{% url 'model_list' %}" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 </body>

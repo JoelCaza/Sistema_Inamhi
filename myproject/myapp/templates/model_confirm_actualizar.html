@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmacion</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS for additional styling */
+        body {
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+        }
+        .btn-actions {
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Confirmar Actualización</h1>
+        <p>¿Está seguro de que desea actualizar los datos?</p>
+        <form method="post" action="{% url 'model_confirm_actualizar' model.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-actions">Sí, actualizar</button>
+            <a href="{% url 'model_update' model.pk %}" class="btn btn-secondary btn-actions">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>
