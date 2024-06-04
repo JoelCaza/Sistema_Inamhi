@@ -11,16 +11,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
    
 </head>
+<<<<<<< Updated upstream
 <div class="container">
     <div class="header-image">
         <img src="../static/img/icono-inamhi.png" alt="">
     </div>
     <div class="header-container">
         <a href="{% url 'salir'%}" class="btn btn-danger float-right mt-2 mr-2"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+=======
+<body>
+    <div class="container">
+        
+        <div class="header-image">
+            <img src="../static/img/icono-inamhi.png" alt="">
+        </div>
+>>>>>>> Stashed changes
         <div class="header-titles">
             <h5> REPÚBLICA DEL ECUADOR </h5>
             <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
             <h5> REGISTRO DE CONSTATACIÓN FÍSICA DE BIENES 2024 </h5>
+<<<<<<< Updated upstream
         </div>
     </div>
     
@@ -89,5 +99,116 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
 <!-- Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+=======
+        </div>
+        
+        <div class="mb-4">
+            <a href="{% url 'salir' %}" class="btn btn-danger logout-btn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            <a href="{% url 'model_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Producto</a>
+            <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+            <a href="{% url 'export_to_pdf' %}" class="btn btn-warning btn-action"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
+        </div>
+
+        <!-- Barra de búsqueda -->
+        <div class="mb-4">
+            <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Código Bien</th>
+                        <th scope="col">Código Anterior</th>
+                        <th scope="col">Código Provisional</th>
+                        <th scope="col">Código Nuevo</th>
+                        <th scope="col">Nombre Bien</th>
+                        <th scope="col">Serie</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Material</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Ubicación</th>
+                        <th scope="col">Cédula</th>
+                        <th scope="col">Custodio Actual</th>
+                        <th scope="col">Observación</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    {% for model in models %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ model.codigo_bien }}</td>
+                            <td>{{ model.codigo_anterior }}</td>
+                            <td>{{ model.codigo_provisional }}</td>
+                            <td>{{ model.codigo_nuevo }}</td>
+                            <td>{{ model.nombre_bien }}</td>
+                            <td>{{ model.serie }}</td>
+                            <td>{{ model.modelo }}</td>
+                            <td>{{ model.marca }}</td>
+                            <td>{{ model.color }}</td>
+                            <td>{{ model.material }}</td>
+                            <td>{{ model.estado }}</td>
+                            <td>{{ model.ubicacion }}</td>
+                            <td>{{ model.cedula }}</td>
+                            <td>{{ model.custodio_actual }}</td>
+                            <td>{{ model.observacion }}</td>
+                            <td>
+                                <a href="{% url 'model_detail' pk=model.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
+                                <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-sm btn-action"><i class="far fa-edit"></i> Editar</a>
+                                <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-danger btn-sm btn-action"><i class="far fa-trash-alt"></i> Eliminar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Script de búsqueda -->
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let rows = document.getElementById('tableBody').getElementsByTagName('tr');
+            
+            for (let i = 0; i < rows.length; i++) {
+                let row = rows[i];
+                let cells = row.getElementsByTagName('td');
+                let match = false;
+                
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].innerHTML.toLowerCase().includes(input)) {
+                        match = true;
+                        break;
+                    }
+                }
+                
+                if (match) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+            var texto = this.value.toLowerCase();
+            var tabla = document.getElementById("tabla");
+            var filas = tabla.getElementsByTagName("tr");
+            for (var i = 0; i < filas.length; i++) {
+                var textoFila = filas[i].textContent.toLowerCase();
+                var id = filas[i].cells[0].innerText;
+                if (textoFila.includes(texto) && !filaEliminada(id)) {
+                    filas[i].style.display = "";
+                } else {
+                    filas[i].style.display = "none";
+                }
+            }
+        });
+    </script>
+>>>>>>> Stashed changes
 </body>
 </html>
