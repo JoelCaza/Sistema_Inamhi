@@ -17,6 +17,12 @@
         <div class="header-image">
             <img src="../static/img/icono-inamhi.png" alt="">
         </div>
+        <div>
+
+        </div>
+        <div class="d-flex justify-content-end"> <!-- Este div envuelve el botón y lo alinea a la derecha -->
+            <a href="{% url 'salir' %}" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+        </div>
         <div class="header-titles">
             <h5> REPÚBLICA DEL ECUADOR </h5>
             <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
@@ -24,7 +30,7 @@
         </div>
         
         <div class="mb-4">
-            <a href="{% url 'salir' %}" class="btn btn-danger logout-btn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+           
             <a href="{% url 'model_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Producto</a>
             <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
             <a href="{% url 'export_to_pdf' %}" class="btn btn-warning btn-action"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
