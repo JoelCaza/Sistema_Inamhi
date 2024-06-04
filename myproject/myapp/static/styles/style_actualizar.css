@@ -1,4 +1,6 @@
-/*INgresamos los diseños del body*/
+/* style_actualizar.css */
+
+/* INgresamos los diseños del body */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -6,29 +8,29 @@ body {
     padding: 0;
     float: none;
 }
+h1 {
+    text-align: center;
+}
 
-/*rectificamos el contenedor el cual llevara un  diseño quen englobe todo el formulario*/
+/* rectificamos el contenedor el cual llevara un diseño que englobe todo el formulario */
 .container {
     width: 80%;
     margin: 50px auto; 
     position: relative; 
     z-index: 1; 
     background-color: rgba(237, 233, 233, 0.7); 
-    padding: 20px;
+    padding: 25px;
     border-radius: 25px; 
-    }
-    
+}
 
-/*le damos los diseños a la tabla en la cual se trabajara*/
+/* le damos los diseños a la tabla en la cual se trabajara */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-   
-
 }
 
-/*Tenemos dos tablas que dara un diseño */
+/* Tenemos dos tablas que daran un diseño */
 table th,
 table td {
     border: 1px solid #033d5d;
@@ -36,18 +38,18 @@ table td {
     text-align: left;
 }
 
-/*Se da un color al interios se la tabla*/
+/* Se da un color al interior de la tabla */
 thead {
     background-color: #4cadca;
 }
 
-/*en el imput podremos reconocer el */
+/* en el input podremos reconocer el */
 input[type="text"] {
-    width: 100%;
-    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    width: 100%;
+    padding: 8px;
 }
 
 .button-container {
@@ -62,16 +64,15 @@ button {
     border-radius: 4px;
     cursor: pointer;
 }
-
 button:hover {
     background-color: #45a049;
 }
-
-img {
-    position: fixed; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; 
+.btn-secundary {
+    border-bottom: none;
+    background-color: #dc3545;
+    color: #ffff;
 }
+.btn-secundary :hover{
+    background-color: #c82333;
+}
+

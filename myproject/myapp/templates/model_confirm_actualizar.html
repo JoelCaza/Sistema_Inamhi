@@ -22,15 +22,13 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="mt-5 mb-4">Confirmacion de actualizar</h1>
-        <p>Usted desea actualizar los datos"{{ model.name }}"?</p>
-        <form action="{% url 'model_update' pk=model.pk %}" method="post">
+        <h1>Confirmar Actualización</h1>
+        <p>¿Está seguro de que desea actualizar los datos?</p>
+        <form method="post" action="{% url 'model_confirm_actualizar' model.pk %}">
             {% csrf_token %}
-            <input type="submit" class="btn btn-primary btn-save" value="Acualizar">
-            <a href="{% url 'model_list' %}" class="btn btn-secondary btn-actions">Cancel</a>
+            <button type="submit" class="btn btn-primary btn-actions">Sí, actualizar</button>
+            <a href="{% url 'model_update' model.pk %}" class="btn btn-secondary btn-actions">Cancelar</a>
         </form>
     </div>
-    <!-- Bootstrap JS (optional) -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

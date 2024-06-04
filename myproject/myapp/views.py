@@ -53,17 +53,41 @@ def model_create(request):
     return render(request, 'model_form.html', {'form': form})
 
 
+
+
+def model_confirm_actualizar(request, pk):
+    model = get_object_or_404(MyModel, pk=pk)
+    if request.method == 'POST':
+        # Guardar los cambios en la confirmación
+        form_data = request.session.get('form_data')
+        if form_data:
+            form = MyModelForm(form_data, instance=model)
+            if form.is_valid():
+                form.save()
+                return redirect('model_list')
+                
+    else:
+        form = MyModelForm(instance=model)
+    return render(request, 'model_confirm_actualizar.html', {'form': form, 'model': model})
+
+
 def model_update(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
     if request.method == 'POST':
         form = MyModelForm(request.POST, instance=model)
         if form.is_valid():
-            form.save()
-            return redirect('model_list')
+            # Redirige a la confirmación sin guardar los cambios
+            request.session['form_data'] = form.cleaned_data
+            return redirect('model_confirm_actualizar', pk=model.pk)
     else:
         form = MyModelForm(instance=model)
+<<<<<<< Updated upstream
     return render(request, 'actualizar.html', {'form': form})
 
+=======
+    return render(request, 'actualizar.html', {'form': form, 'model': model})
+    
+>>>>>>> Stashed changes
 
 def model_confirm_delete(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
