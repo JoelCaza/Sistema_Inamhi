@@ -8,11 +8,14 @@
 }
 /* para el vody tenga la imagen de fondo y se centre */
 body{
-    background-image: url(../img/FONDO.jpg);
+    /* background-image: url(../img/FONDO.jpg); */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle 800px,#6437b7,#4d338a, #2b2a2c);
 }
 /* para que se centre el contenido del main */
 main{
@@ -30,14 +33,7 @@ main{
     /* posicion para que los elementos se relacion con el  */
     position: relative;
 }
-.contenedor_login_register form{
-    width: 100%;
-    /* ancho maximo  */
-    max-width: 800px;
-    margin:auto;
-    /* posicion para que los elementos se relacion con el  */
-    position: relative;
-}
+
 /* la caja del fondo  */
 .caja_trasera{
     width: 100%;
@@ -55,9 +51,9 @@ main{
     border-radius: 15px;
 }
 .caja_trasera img{
-    transform: translateX(105%);
+    transform: translateX(95%);
     width: 60%;
-    margin-top: -20px;
+    margin-top: -50px;
   
 }
 .caja_trasera div{
@@ -196,6 +192,12 @@ main{
     /* para que se me posicione bien y se me suba el fomulario  */
     .contenedor__login-register form{
         position: relative;
+    }
+    .caja_trasera img{
+        transform: translateX(0%);
+        width: 80%;
+        margin-top: -50px;
+      
     }
 }
 

@@ -1,80 +1,93 @@
 {% load static %}
-<!-- model_list.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Inventario</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href='{% static  "/styles/model_list.css" %}'>
-
-
+    <link rel="stylesheet" type="text/css" href="{% static '/styles/model_list.css' %}">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+   
 </head>
 <body>
     <div class="container">
-        <a href="{% url 'salir'%}"><button class="btn btn-xl btn-danger mr-1"> Cerrar Sesion</button> </a>
-        <h1 class="mt-5 mb-4">Sistema de Inventario</h1>
-        <a href="{% url 'model_create' %}" class="btn btn-primary btn-create">Añade</a>
         
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Codigo Bien</th>
-                    <th scope="col">Codigo Anterior</th>
-                    <th scope="col">Codigo Provisional</th>
-                    <th scope="col">Codigo Nuevo</th>
-                    <th scope="col">Nombre Bien</th>
-                    <th scope="col">Serie</th>
-                    <th scope="col">Modelo</th>
-                    <th scope="col">Marca</th>
-                    <th scope="col">Color</th>
-                    <th scope="col">Material</th>
-                    <th scope="col">Estado</th>
-                    <th scope="col">Ubicacion</th>
-                    <th scope="col">Cedula</th>
-                    <th scope="col">Custodio Actual</th>
-                    <th scope="col">Observacion</th>
-                    <th scope="col">Acciones</th>
-                    
+        <div class="header-image">
+            <img src="../static/img/icono-inamhi.png" alt="">
+        </div>
+            <div class="header-titles">
+                <h5> REPÚBLICA DEL ECUADOR </h5>
+                <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
+                <h5> REGISTRO DE CONSTATACIÓN FÍSICA DE BIENES 2024 </h5>
+            </div>
+        
+        
+        <div class="mb-4">
+            <a href="{% url 'salir'%}" class="btn btn-danger logout-btn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
 
-                    
-                </tr>
-            </thead>
-            <tbody>
-                {% for model in models %}
-        <tr>
-                <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ model.codigo_bien }}</td>
-                <td>{{ model.codigo_anterior }}</td>
-                <td>{{ model.codigo_provisional }}</td>
-                <td>{{ model.codigo_nuevo }}</td>
-                <td>{{ model.nombre_bien }}</td>
-                <td>{{ model.serie }}</td>
-                <td>{{ model.modelo }}</td>
-                <td>{{ model.marca }}</td>
-                <td>{{ model.color }}</td>
-                <td>{{ model.material }}</td>
-                <td>{{ model.estado }}</td>
-                <td>{{ model.ubicacion }}</td>
-                <td>{{ model.cedula }}</td>
-                <td>{{ model.custodio_actual }}</td>
-                <td>{{ model.observacion }}</td>
-                <td>
-                    <a href="{% url 'model_detail' pk=model.pk %}" class="btn btn-sm btn-info mr-1">Ver</a>
-                    <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-sm btn-warning mr-1">Editar</a>
-                    <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
-                </td>
-                
-            </tr>
-{% endfor %}
-
-                
-        </table>
+            <a href="{% url 'model_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Producto</a>
+            <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
+            <a href="{% url 'export_to_pdf' %}" class="btn btn-warning btn-action"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Código Bien</th>
+                        <th scope="col">Código Anterior</th>
+                        <th scope="col">Código Provisional</th>
+                        <th scope="col">Código Nuevo</th>
+                        <th scope="col">Nombre Bien</th>
+                        <th scope="col">Serie</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Marca</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Material</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Ubicación</th>
+                        <th scope="col">Cédula</th>
+                        <th scope="col">Custodio Actual</th>
+                        <th scope="col">Observación</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for model in models %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ model.codigo_bien }}</td>
+                            <td>{{ model.codigo_anterior }}</td>
+                            <td>{{ model.codigo_provisional }}</td>
+                            <td>{{ model.codigo_nuevo }}</td>
+                            <td>{{ model.nombre_bien }}</td>
+                            <td>{{ model.serie }}</td>
+                            <td>{{ model.modelo }}</td>
+                            <td>{{ model.marca }}</td>
+                            <td>{{ model.color }}</td>
+                            <td>{{ model.material }}</td>
+                            <td>{{ model.estado }}</td>
+                            <td>{{ model.ubicacion }}</td>
+                            <td>{{ model.cedula }}</td>
+                            <td>{{ model.custodio_actual }}</td>
+                            <td>{{ model.observacion }}</td>
+                            <td>
+                                <a href="{% url 'model_detail' pk=model.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
+                                <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-sm btn-action"><i class="far fa-edit"></i> Editar</a>
+                                <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-danger btn-sm btn-action"><i class="far fa-trash-alt"></i> Eliminar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-   
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

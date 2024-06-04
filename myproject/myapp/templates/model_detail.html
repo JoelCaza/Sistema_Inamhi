@@ -1,37 +1,40 @@
-<!-- model_detail.html -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle De Inventario</title>
+    <title>Detalle De Bien</title>
     
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        
-        body {
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-        }
-        .btn-actions {
-            margin-top: 10px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href='{% static  "/styles/model_detail.css" %}'>
 </head>
 <body>
     <div class="container">
-        <a href="{% url 'model_list' %}" class="btn btn-secondary btn-actions">Regresar</a>
-
-        <h1 class="mt-5 mb-4">Detalle de Inventario</h1>
-        <p><strong>Nombre:</strong> {{ model.name }}</p>
-        <p><strong>Descripcion:</strong> {{ model.description }}</p>
-        <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-actions">Actualizar</a>
-        <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-danger btn-actions">Eliminar</a>
-        
+        <div class="card">
+            <h1 class="card-title">Detalle de Bien</h1>
+            <p><strong>Codigo Bien:</strong> {{ model.codigo_bien }}</p>
+            <p><strong>Codigo Anterior:</strong> {{ model.codigo_anterior }}</p>
+            <p><strong>Codigo Provisional:</strong> {{ model.codigo_provisional }}</p>
+            <p><strong>Codigo Nuevo:</strong> {{ model.codigo_nuevo }}</p>
+            <p><strong>Nombre Bien:</strong> {{ model.nombre_bien }}</p>
+            <p><strong>Serie:</strong> {{ model.serie }}</p>
+            <p><strong>Modelo:</strong> {{ model.modelo  }}</p>
+            <p><strong>Marca:</strong> {{ model.marca }}</p>
+            <p><strong>Color:</strong> {{ model.color  }}</p>
+            <p><strong>Material:</strong> {{ model.material }}</p>
+            <p><strong>Estado:</strong> {{ model.estado }}</p>
+            <p><strong>Ubicacion:</strong> {{ model.ubicacion }}</p>
+            <p><strong>Cedula:</strong> {{ model.cedula }}</p>
+            <p><strong>Custodio Actual:</strong> {{ model.custodio_actual }}</p>
+            <p><strong>Observacion:</strong> {{ model.observacion }}</p>
+        </div>
     </div>
-   
+    <div class="container btn-container">
+        <a href="{% url 'model_list' %}" class="btn btn-secondary btn-actions mr-2">Regresar</a>
+        <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-actions mr-2">Actualizar</a>
+        <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-danger btn-actions">Eliminar</a>
+    </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
