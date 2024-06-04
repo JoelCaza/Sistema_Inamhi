@@ -6,32 +6,39 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    min-height: 100vh;
     background-size: cover;
     background-position: center;
-    background-image: radial-gradient(circle 800px,#6437b7,#4d338a, #2b2a2c);
-
+    background-image: radial-gradient(circle 800px, #6437b7, #4d338a, #2b2a2c);
 }
 
 .container {
-    
     background-color: white;
     padding: 20px;
     box-shadow: 0 0 10px rgba(97, 11, 11, 0.1);
-    border-radius: 8px; 
-    max-width: 70%; /* Tamaño del contendor ancho */
-    margin: 20px ;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px;
     overflow: hidden;
 }
 
-table {
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
 
-th, td {
+.table-bordered th, .table-bordered td {
     border: 1px solid #000000;
+}
+
+th, td {
     padding: 5px;
     text-align: left;
 }
@@ -48,24 +55,31 @@ th {
     padding: 15px 32px;
 }
 
-.btn-primary {
-    background-color: #266ae7; /* Color de fondo azul */
-    color: white;              /* Color del texto blanco */
-    border: none;              /* Sin borde */
-    padding: 10px 20px;        /* Relleno del botón */
-    text-align: center;        /* Alineación del texto */
-    text-decoration: none;     /* Sin subrayado */
-    display: inline-block;     /* Mostrar como bloque en línea */
-    font-size: 16px;           /* Tamaño de la fuente */
-    margin: 4px 2px;           /* Margen */
-    cursor: pointer;           /* Cambia el cursor al pasar sobre el botón */
-    border-radius: 8px;        /* Bordes redondeados */
-    transition: background-color 0.3s; /* Transición suave para el color de fondo */
+.btn {
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
 }
 
-.btn-primary:hover {
+.btn-save {
+    background-color: #28a745; /* Color azul para el botón de Guardar */
+    color: white;
+}
+
+.btn-actions {
+    background-color: #db3737; /* Color verde para el botón de Regresar */
+    color: white;
+}
+
+.btn:hover {
     transform: translateY(-3px);
-    margin-right: 5px;
     border-radius: 5px;
     transition: all 0.3s ease;
 }
@@ -73,10 +87,6 @@ th {
 label {
     color: #000000;
     margin: 0;
-}
-
-table {
-    width: 100%;
 }
 
 table th, table td {
@@ -91,35 +101,57 @@ table td label {
 table input[type="text"],
 table textarea,
 table select {
-    width: 100%; /* Hacer que los campos de texto, textarea y select ocupen el 100% del ancho de la celda */
-    max-width: 100%; /* Evita que el campo sea más ancho que su contenedor */
+    width: 100%;
+    max-width: 100%;
     padding: 8px;
     font-size: 16px;
     border: 1px solid #e7c7c7;
     border-radius: 4px;
-    box-sizing: border-box; /* Incluye padding y border en el ancho total */
+    box-sizing: border-box;
 }
 
 table textarea {
-    height: 50px; /* Puedes ajustar la altura según sea necesario */
+    height: 50px;
 }
 
-
-
-.header-titles{
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     color: white;
     margin-top: 20px;
 }
 
 .header-image {
-    position: absolute;
-    top: 10px; /* Mueve la imagen hacia arriba */
-    right: 20px; /* Mueve la imagen hacia la derecha */
+    margin-bottom: 10px;
 }
 
 .header-image img {
-    width: 100%; /* Haz que la imagen ocupe el 100% del ancho del contenedor */
-    height: auto; /* Mantén la proporción original de la imagen */
-    max-width: 200px; /* Establece un ancho máximo opcional */
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    display: block;
+    margin: 0 auto;
+}
+
+.header-titles h5 {
+    margin: 5px 0;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .button-container {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
 }
