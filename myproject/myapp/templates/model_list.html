@@ -66,30 +66,33 @@
                 </thead>
                 <tbody id="tableBody">
                     {% for model in models %}
-                        <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ model.codigo_bien }}</td>
-                            <td>{{ model.codigo_anterior }}</td>
-                            <td>{{ model.codigo_provisional }}</td>
-                            <td>{{ model.codigo_nuevo }}</td>
-                            <td>{{ model.nombre_bien }}</td>
-                            <td>{{ model.serie }}</td>
-                            <td>{{ model.modelo }}</td>
-                            <td>{{ model.marca }}</td>
-                            <td>{{ model.color }}</td>
-                            <td>{{ model.material }}</td>
-                            <td>{{ model.estado }}</td>
-                            <td>{{ model.ubicacion }}</td>
-                            <td>{{ model.cedula }}</td>
-                            <td>{{ model.custodio_actual }}</td>
-                            <td>{{ model.observacion }}</td>
-                            <td>
-                                <a href="{% url 'model_detail' pk=model.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
-                                <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-sm btn-action"><i class="far fa-edit"></i> Editar</a>
-                                <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-danger btn-sm btn-action"><i class="far fa-trash-alt"></i> Eliminar</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
+    {% if model.estado_registro %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ model.codigo_bien }}</td>
+            <td>{{ model.codigo_anterior }}</td>
+            <td>{{ model.codigo_provisional }}</td>
+            <td>{{ model.codigo_nuevo }}</td>
+            <td>{{ model.nombre_bien }}</td>
+            <td>{{ model.serie }}</td>
+            <td>{{ model.modelo }}</td>
+            <td>{{ model.marca }}</td>
+            <td>{{ model.color }}</td>
+            <td>{{ model.material }}</td>
+            <td>{{ model.estado }}</td>
+            <td>{{ model.ubicacion }}</td>
+            <td>{{ model.cedula }}</td>
+            <td>{{ model.custodio_actual }}</td>
+            <td>{{ model.observacion }}</td>
+            <td>
+                <a href="{% url 'model_detail' pk=model.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
+                <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-sm btn-action"><i class="far fa-edit"></i> Editar</a>
+                <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-danger btn-sm btn-action"><i class="far fa-trash-alt"></i> Eliminar</a>
+            </td>
+        </tr>
+    {% endif %}
+{% endfor %}
+
                 </tbody>
             </table>
         </div>
