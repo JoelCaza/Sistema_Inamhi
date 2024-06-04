@@ -20,9 +20,8 @@ img {
 
 table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    border: 2px solid white; /* Agregar borde blanco */
+    margin-top: 30px;
+    border: 4px solid white; /* Agregar borde blanco */
 }
 
 th, td {

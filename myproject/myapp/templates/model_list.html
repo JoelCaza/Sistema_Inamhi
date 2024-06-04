@@ -17,21 +17,30 @@
         <div class="header-image">
             <img src="../static/img/icono-inamhi.png" alt="">
         </div>
-            <div class="header-titles">
-                <h5> REPÚBLICA DEL ECUADOR </h5>
-                <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
-                <h5> REGISTRO DE CONSTATACIÓN FÍSICA DE BIENES 2024 </h5>
-            </div>
-        
+        <div>
+
+        </div>
+        <div class="d-flex justify-content-end"> <!-- Este div envuelve el botón y lo alinea a la derecha -->
+            <a href="{% url 'salir' %}" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+        </div>
+        <div class="header-titles">
+            <h5> REPÚBLICA DEL ECUADOR </h5>
+            <h5>INSTITUTO NACIONAL DE METEOROLOGIA E HIDROLOGIA -INAMHI BIENES POR CUSTODIO</h5>
+            <h5> REGISTRO DE CONSTATACIÓN FÍSICA DE BIENES 2024 </h5>
+        </div>
         
         <div class="mb-4">
-            <a href="{% url 'salir'%}" class="btn btn-danger logout-btn"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
-
+           
             <a href="{% url 'model_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Producto</a>
             <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
             <a href="{% url 'export_to_pdf' %}" class="btn btn-warning btn-action"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
         </div>
-        
+
+        <!-- Barra de búsqueda -->
+        <div class="mb-4">
+            <input id="searchInput" type="text" class="form-control" placeholder="Buscar...">
+        </div>
+
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -55,7 +64,7 @@
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tableBody">
                     {% for model in models %}
                         <tr>
                             <th scope="row">{{ forloop.counter }}</th>
@@ -89,5 +98,43 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Script de búsqueda -->
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let rows = document.getElementById('tableBody').getElementsByTagName('tr');
+            
+            for (let i = 0; i < rows.length; i++) {
+                let row = rows[i];
+                let cells = row.getElementsByTagName('td');
+                let match = false;
+                
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].innerHTML.toLowerCase().includes(input)) {
+                        match = true;
+                        break;
+                    }
+                }
+                
+                if (match) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+            var texto = this.value.toLowerCase();
+            var tabla = document.getElementById("tabla");
+            var filas = tabla.getElementsByTagName("tr");
+            for (var i = 0; i < filas.length; i++) {
+                var textoFila = filas[i].textContent.toLowerCase();
+                var id = filas[i].cells[0].innerText;
+                if (textoFila.includes(texto) && !filaEliminada(id)) {
+                    filas[i].style.display = "";
+                } else {
+                    filas[i].style.display = "none";
+                }
+            }
+        });
+    </script>
 </body>
 </html>
