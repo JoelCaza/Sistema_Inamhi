@@ -8,13 +8,29 @@
 </head>
 <body>
     <div class="container">
-        <h1>Actualizacion</h1>
+        <div class="header-image">
+            <img src="../static/img/icono-inamhi.png" alt="">
+        </div>
+        <h1>Actualización</h1>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-sm btn-warning mr-1">Guardar</button>
-            <a href="{% url 'model_list' %}" class="btn btn-secondary">Cancelar</a>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ form.as_table }}
+                </tbody>
+            </table>
+            <div class="button-container">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="{% url 'model_list' %}" class="btn btn-secondary">Cancelar</a>
+            </div>
         </form>
     </div>
+
 </body>
 </html>
