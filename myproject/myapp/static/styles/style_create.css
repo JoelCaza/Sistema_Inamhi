@@ -64,7 +64,10 @@ th {
 }
 
 .btn-primary:hover {
-    background-color: #2f9edf; /* Color de fondo al pasar el ratón */
+    transform: translateY(-3px);
+    margin-right: 5px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
 }
 
 label {
