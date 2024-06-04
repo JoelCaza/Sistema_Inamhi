@@ -77,17 +77,16 @@ h5{
     position: relative;
 }
 
+
+
 .header-image {
-    position: absolute;
-    top: 10px; /* Mueve la imagen hacia arriba */
-    right: 20px; /* Mueve la imagen hacia la derecha */
-    
+    margin-bottom: 10px;
 }
 
 .header-image img {
-    width: 100%; /* Haz que la imagen ocupe el 100% del ancho del contenedor */
-    height: auto; /* Mantén la proporción original de la imagen */
-    max-width: 200px; /* Establece un ancho máximo opcional */
-    
-    
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    display: block;
+    margin: 0 auto;
 }
