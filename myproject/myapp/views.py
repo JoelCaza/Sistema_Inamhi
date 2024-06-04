@@ -81,13 +81,9 @@ def model_update(request, pk):
             return redirect('model_confirm_actualizar', pk=model.pk)
     else:
         form = MyModelForm(instance=model)
-<<<<<<< Updated upstream
-    return render(request, 'actualizar.html', {'form': form})
-
-=======
+        
     return render(request, 'actualizar.html', {'form': form, 'model': model})
     
->>>>>>> Stashed changes
 
 def model_confirm_delete(request, pk):
     model = get_object_or_404(MyModel, pk=pk)

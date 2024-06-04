@@ -4,12 +4,14 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
+    
 }
 
 .container {
     max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
+    z-index: 1;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -19,6 +21,11 @@ h1 {
     color: #007bff;
     margin-bottom: 30px;
     text-align: center;
+
+}
+h5{
+    font-weight:bold;
+
 }
 
 .btn-action {
@@ -82,7 +89,7 @@ h1 {
 .header-titles{
     text-align: center;
     color: black;
-    font-weight: lighter;
+    font-weight:bolder;
     margin-top: 20px;
 }
 
@@ -96,4 +103,5 @@ h1 {
     width: 100%; /* Haz que la imagen ocupe el 100% del ancho del contenedor */
     height: auto; /* Mantén la proporción original de la imagen */
     max-width: 200px; /* Establece un ancho máximo opcional */
+    
 }

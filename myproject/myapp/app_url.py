@@ -11,6 +11,7 @@ urlpatterns = [
     path('<int:pk>/update/', views.model_update, name='model_update'),
     path('<int:pk>/delete/', views.model_delete, name='model_delete'),
     path('<int:pk>/delete/confirm/', views.model_confirm_delete, name='model_confirm_delete'),
+     path('<int:pk>/update/confirm/', views.model_confirm_actualizar, name='model_confirm_actualizar'),
     path('export/', views.export_to_excel, name='export_to_excel'), # URL para exportar a Excel
     path('exportpdf/', views.export_to_pdf, name='export_to_pdf'), # URL para exportar a Excel
     path('salir/', views.salir, name="salir")
