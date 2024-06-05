@@ -1,183 +1,93 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-
-}
 body{
-    justify-content: center;
-    /* background-image: radial-gradient(circle 800px,#6437b7,#4d338a, #2b2a2c); */
-}
-.box_1{
-    background: rgba(114,79,152,0.5);
-    height: 200px;
-    width: 350px;
-    margin-top: 100px;
-    position: absolute;
-    transform: translatex(-300px);
-    top:200px;
-    border-radius: 5px;
-    align-content: center;
-
-}
-.box_1 input:hover{
-    background: rgba(76,61,168);
-    color: white;
-    border: 2px solid ;
-}
-.box_2 input:hover{
-    background: rgba(76,61,168);
-    color: white;
-    border: 2px solid ;
-}
-
-.slider .box_1 img{
-    position: absolute;
-    margin-left: 10px;
-    width: 40%;
-    height: 50%;
-    bottom: 50px;
-    
-}
-.slider .box_2 img {
-    position: absolute;
-    margin-left: 10px;
-    width: 30%;
-    height: 50%;
-    bottom: 50px;
-}
-.box_2{
-    background: rgba(114,79,152,0.5);
-    height: 200px;
-    width: 350px;
-    position: absolute;
-    left: 800px;
-    top:300px;
-    
-    transform: translatex(-300px);
-    border-radius: 5px;
-    align-content: center;
-}
-.slider h1{
-    position: absolute;
-    color: white;
-    top:10%;
-    left: 30%;
-    z-index: 1;
-    font-size: 50px;
-    text-transform: uppercase; 
-}
-.slider h2{
-    position: absolute;
-    color: white;
-    top:20%;
-    left: 5%;
-    z-index: 1;
-    font-size: 30px;
-    text-align: center;
-    text-transform: uppercase; 
-}
-.box_1 p{
-    position: absolute;
-    color: aliceblue;
-    font-size: 30px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    left: 100px;
-    top: 0px;
-}
-.box_1 input{
-    padding: 10px 40px;
-    cursor: pointer;
-    border-radius: 5px;
-    outline: none;
-    margin-left: 110px;
-    margin-top: 50px;
-    border-radius: 5px;
-    background-color: white;
-    position: absolute;
-    left: 50px;
-    top: 70px;
-    color: black;
-}
-
-.box_2 p{
-    position: absolute;
-    color: aliceblue;
-    font-size: 30px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    left: 100px;
-    top: 20px;
-}
-.box_2 input{
-    padding: 10px 40px;
-    cursor: pointer;
-    border-radius: 5px;
-    outline: none;
-    margin-left: 110px;
-    margin-top: 50px;
-    border-radius: 5px;
-    background-color: white;
-    color: black;
-    position: absolute;
-    left: 50px;
-    top: 70px;
-    color: black;
-}
-.slider{
-    width: auto;
-    height: 630px;
-    width: 50px auto 0;
-    overflow: hidden;
-    position: relative;
-}
-
-.slider ul{
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 78vh;
     display: flex;
-    padding: 0;
-    width: 400%;
-    animation: slide 30s infinite alternate ease-in-out;
+    align-items: center;
+    /* este es para que em centre el contenido  */
+    justify-content: center;
+    background-image: radial-gradient(circle 800px,#6437b7,#4d338a, #2b2a2c);
 }
-.slider  li{
-    width: 100%;
-    list-style: none;
+form{
     position: relative;
+    background-color: #805bf3;
+    padding: 200px 55px 85px 55px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.9);
+    border-radius: 5px;
+    text-align: center;
+    width: 940px;
+    height: 200px;
+    margin-top: 50px;
+    display: flex;
+    align-content: center;
+    justify-content:center;
+    align-items: center;
+    /* agrega espacio entre lso elementos */
+    /* gap: 50px; */
 }
-.slider img{
-    width: 100%;
-    height:650px;
+.box{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 10px 10PX  15px rgba(0,0,0,0.9);
+    background-color: white;
+    width: 45%;
+    height: 100%;
+    margin: 0 auto;
+    border-radius: 10PX;
 }
-
-@keyframes slide  {
-
-    0%{ margin-left: 0;}
-    20%{ margin-left: 0;}
-
-    25%{ margin-left: -150%;}
-    45%{ margin-left: -150%;}
-
-    50%{ margin-left: -300%;}
-    70%{ margin-left: -300%;}
+.box-2{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 10px 10px 15PX rgb(0, 0, 0,0.9);
+    width: 45%;
+    height: 100%;
+    /* margin-left: 55%; */
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 10PX;
 }
-
-@media screen and (min-width:800px){
+form h2{
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+ 
+.box input,
+.box-2 input {
+    margin-top: auto; /* Mueve el input al final del div */
+    padding: 20px;
+    background-color: rgb(91,77,171,0.9);
+    color: white;
+    font-size: 20px;
+    border: none ;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.imagen img{
+    width: 80%;
     
-    .slider {
-        position: absolute;
-        height: 100%;
-    }
-    .box_1{
-        left: 500px;  
-    }
-    .box_2{
-        left: 1100px;  
-    }
-    .slider ul li img{
-        width: 100%;
-        height: 1000px;
-    }
+}
+.imagen{
+    position: fixed;
+    width: 100px;
+    margin-left: 20px ;
+    margin-top: 40px;
+}
+.title{
+   text-align: right;
+   margin-right: 50px;
+   margin-top: 4cqw;
+   font-size: 20px;
+}
+h2{
+    text-transform: uppercase;
+    margin-top: 50px;
+    color: white;
+}
 
+.box-2 input:hover{
+    background: #4C3DA8;
+}
+.box input:hover{
+    background: #4C3DA8;
 }
