@@ -1,10 +1,5 @@
 from django.db import models
 
-class MyModelManager(models.Manager):
-    def get_queryset(self):
-        #aplica un filtro que solo devuelve los registros donde su estado sea "true"
-        return super().get_queryset().filter(estado_registro=True)
-
 class MyModel(models.Model):
     codigo_bien = models.CharField(max_length=100, verbose_name='Cod. Bien')
     codigo_anterior = models.CharField(max_length=100, verbose_name='Cod. Anterior')
@@ -22,12 +17,7 @@ class MyModel(models.Model):
     custodio_actual = models.CharField(max_length=150, verbose_name='Custodio Actual')
     observacion = models.TextField(verbose_name='Observacion')
     estado_registro = models.BooleanField(default=True, verbose_name='Estado de Registro')
-
-    #accede a todos los registros activos no eliminados
-    objects = MyModelManager()
-
-    #accede a todos los registros incluyendo los eliminados
-    all_objects = models.Manager()
+    archivo = models.FileField(upload_to='archivos/', null=True, blank=True, verbose_name='Archivo')
 
 
     def __str__(self):

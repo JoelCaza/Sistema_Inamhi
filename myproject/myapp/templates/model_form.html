@@ -23,7 +23,7 @@
     </div>
 
     <div class="container">            
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="table-responsive">
                 <table class="table table-bordered">
@@ -93,6 +93,10 @@
                         <tr>
                             <td><label for="id_observacion">Observación</label></td>
                             <td>{{ form.observacion }}</td>
+                        </tr>
+                        <tr>
+                            <td><label for="id_archivo">Archivo Adjunto</label></td>
+                            <td>{{ form.archivo }}</td>
                         </tr>
                     </tbody>
                 </table>

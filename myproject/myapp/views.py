@@ -32,21 +32,14 @@ def model_detail(request, pk):
 
 def model_create(request):
     if request.method == 'POST':
-        form = MyModelForm(request.POST)
+        form = MyModelForm(request.POST, request.FILES)
         if form.is_valid():
-            # Obtiene los datos del formulario
-            cleaned_data = form.cleaned_data
-
-            # Iterar sobre los campos y establecer "VACÍO" para los campos vacíos
-            for field_name, field_value in cleaned_data.items():
-                if not field_value: 
-                    # Si el campo está vacío te muestra un mensaje de VACIO
-                    cleaned_data[field_name] = 'VACÍO'
-
-            # Crear una nueva instancia del formulario con los datos modificados
-            form = MyModelForm(cleaned_data)
-
-            form.save()
+            # Guarda el formulario y establece campos vacíos si no se ingresaron valores
+            instance = form.save(commit=False)
+            for field_name, field_value in instance.__dict__.items():
+                if not field_value and field_name != 'id':  # Excluir el campo 'id' de la lógica
+                    setattr(instance, field_name, 'VACÍO')
+            instance.save()
             return redirect('model_list')
     else:
         form = MyModelForm()

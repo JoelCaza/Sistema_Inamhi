@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../static/styles/model_list.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/model_list.css' %}">
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
    
@@ -15,7 +15,7 @@
     <div class="container">
         
         <div class="header-image">
-            <img src="../static/img/icono-inamhi.png" alt="">
+            <img src="{% static 'img/icono-inamhi.png' %}" alt="">
         </div>
         <div>
 
@@ -61,38 +61,45 @@
                         <th scope="col">Cédula</th>
                         <th scope="col">Custodio Actual</th>
                         <th scope="col">Observación</th>
+                        <th scope="col">Archivo</th> <!-- Columna para el archivo -->
                         <th scope="col">Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
                     {% for model in models %}
-    {% if model.estado_registro %}
-        <tr>
-            <th scope="row">{{ forloop.counter }}</th>
-            <td>{{ model.codigo_bien }}</td>
-            <td>{{ model.codigo_anterior }}</td>
-            <td>{{ model.codigo_provisional }}</td>
-            <td>{{ model.codigo_nuevo }}</td>
-            <td>{{ model.nombre_bien }}</td>
-            <td>{{ model.serie }}</td>
-            <td>{{ model.modelo }}</td>
-            <td>{{ model.marca }}</td>
-            <td>{{ model.color }}</td>
-            <td>{{ model.material }}</td>
-            <td>{{ model.estado }}</td>
-            <td>{{ model.ubicacion }}</td>
-            <td>{{ model.cedula }}</td>
-            <td>{{ model.custodio_actual }}</td>
-            <td>{{ model.observacion }}</td>
-            <td>
-                <a href="{% url 'model_detail' pk=model.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
-                <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-sm btn-action"><i class="far fa-edit"></i> Editar</a>
-                <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-danger btn-sm btn-action"><i class="far fa-trash-alt"></i> Eliminar</a>
-            </td>
-        </tr>
-    {% endif %}
-{% endfor %}
-
+                        {% if model.estado_registro %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ model.codigo_bien }}</td>
+                                <td>{{ model.codigo_anterior }}</td>
+                                <td>{{ model.codigo_provisional }}</td>
+                                <td>{{ model.codigo_nuevo }}</td>
+                                <td>{{ model.nombre_bien }}</td>
+                                <td>{{ model.serie }}</td>
+                                <td>{{ model.modelo }}</td>
+                                <td>{{ model.marca }}</td>
+                                <td>{{ model.color }}</td>
+                                <td>{{ model.material }}</td>
+                                <td>{{ model.estado }}</td>
+                                <td>{{ model.ubicacion }}</td>
+                                <td>{{ model.cedula }}</td>
+                                <td>{{ model.custodio_actual }}</td>
+                                <td>{{ model.observacion }}</td>
+                                <td>
+                                    {% if model.archivo %}
+                                        <a href="{{ model.archivo.url }}" class="btn btn-primary btn-sm" download="{{ model.archivo.name }}"><i class="fas fa-download"></i> Descargar</a>
+                                    {% else %}
+                                        No hay archivo adjunto
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'model_detail' pk=model.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
+                                    <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-sm btn-action"><i class="far fa-edit"></i> Editar</a>
+                                    <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-danger btn-sm btn-action"><i class="far fa-trash-alt"></i> Eliminar</a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -123,18 +130,6 @@
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
-                }
-            }
-            var texto = this.value.toLowerCase();
-            var tabla = document.getElementById("tabla");
-            var filas = tabla.getElementsByTagName("tr");
-            for (var i = 0; i < filas.length; i++) {
-                var textoFila = filas[i].textContent.toLowerCase();
-                var id = filas[i].cells[0].innerText;
-                if (textoFila.includes(texto) && !filaEliminada(id)) {
-                    filas[i].style.display = "";
-                } else {
-                    filas[i].style.display = "none";
                 }
             }
         });
