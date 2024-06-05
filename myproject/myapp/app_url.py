@@ -2,9 +2,12 @@ from django.urls import path
 from django.conf import settings  # Importa la configuración de Django
 from django.conf.urls.static import static  # Importa la función static
 from . import views
+from django.contrib.auth.views import LoginView
 
 urlpatterns = [
     path('', views.model_list, name='model_list'),
+    path('accounts/login/', LoginView.as_view(), name='login'),
+
     path('admin', views.login_required, name='login'),
     path('create/', views.model_create, name='model_create'),
     path('<int:pk>/', views.model_detail, name='model_detail'),
