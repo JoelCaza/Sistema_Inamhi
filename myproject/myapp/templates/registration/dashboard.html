@@ -4,18 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css"  href='{% static  "/styles/dashboard.css" %}'>
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{% static  "/styles/dashboard.css" %}">
 </head>
 <body>
-   
     <form action="{% url 'model_list' %}" method="post">
-        <div class="d-flex justify-content-end"> <!-- Este div envuelve el botón y lo alinea a la derecha -->
+        <div class="d-flex justify-content-end">
             <a href="{% url 'salir' %}" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
         </div>
         {% csrf_token %}
         
-        <h2>instituto nacional de meteorologia e hidrologia-inamhi bienes por custodio </h2>
+        <h2>Instituto Nacional de Meteorología e Hidrología - INAMHI Bienes por Custodio</h2>
         
         <span class="line"></span>
         <div class="box">
@@ -34,9 +33,9 @@
             <div class="imagen">
                 <img src="{% static '/img/boleto.png' %}" alt="">
             </div>
-            <input type="submit" name="ticket" id="ticket">
+            <!-- Enlace al Sistema de Soporte de Tickets -->
+            <a href="{% url 'ticket_list' %}" class="btn btn-primary"><i class="fas fa-ticket-alt"></i> Sistema de Soporte de Tickets</a>
         </div>
     </form>
-    
 </body>
 </html>
