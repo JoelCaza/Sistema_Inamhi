@@ -8,33 +8,35 @@
     <link rel="stylesheet" type="text/css"  href='{% static  "/styles/dashboard.css" %}'>
 </head>
 <body>
-    <form action="" method="post">
-        <h2>instituto nacional de meteorologia e hidrologia-inamhi 
-            bienes por custodio </h2>
-        <span class="line"></span>
-            <div class="box" >
-                <div class="title">
-                    <p>SISTEMA DE INVENTARIO</p>           
-                 </div>
-                
-                <div class="imagen">
-                   
-                    <img src='{% static  "/img/"inventario.png%}'alt="">      
-                </div>
-                <input type="submit" name="sistema" id="sistema">
-            </div>
-            <div class="box-2">
-                <div class="title">
-                    <p>SISTEMA DE TICKETS </p>
-                
-                </div>
-                <div class="imagen">
-                    <img src='{% static  "/img/"boleto.png%}'alt="">
-                </div>
-                <input type="submit" name="ticket" id="ticket">
-            </div>
-           
+   
+    <form action="{% url 'model_list' %}" method="post">
+        <div class="d-flex justify-content-end"> <!-- Este div envuelve el botón y lo alinea a la derecha -->
+            <a href="{% url 'salir' %}" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+        </div>
+        {% csrf_token %}
         
+        <h2>instituto nacional de meteorologia e hidrologia-inamhi bienes por custodio </h2>
+        
+        <span class="line"></span>
+        <div class="box">
+            <div class="title">
+                <p>SISTEMA DE INVENTARIO</p>           
+            </div>
+            <div class="imagen">
+                <img src="{% static '/img/inventario.png' %}" alt="">
+            </div>
+            <input type="submit" name="sistema" id="sistema">
+        </div>
+        <div class="box-2">
+            <div class="title">
+                <p>SISTEMA DE TICKETS</p>
+            </div>
+            <div class="imagen">
+                <img src="{% static '/img/boleto.png' %}" alt="">
+            </div>
+            <input type="submit" name="ticket" id="ticket">
+        </div>
     </form>
+    
 </body>
 </html>

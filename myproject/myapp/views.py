@@ -17,6 +17,9 @@ from io import BytesIO
 
 # @login_required llama al login antes de que entre a el siguiente metodo
 @login_required
+def dashboard(request):
+    return render(request, 'registration/dashboard.html')
+
 def model_list(request): # vista del crud 
     models = MyModel.objects.all()
     return render(request, 'model_list.html', {'models': models})
