@@ -1,7 +1,7 @@
 # views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import MyModel
-from .forms import MyModelForm
+from .forms import MyModelForm, CambioCustodioForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.http import HttpResponse
@@ -12,6 +12,7 @@ from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from django.http import HttpResponse
 from io import BytesIO
+from django.utils import timezone
 
 
 
@@ -20,9 +21,6 @@ from io import BytesIO
 def dashboard(request):
     return render(request, 'registration/dashboard.html')
 
-def model_list(request): # vista del crud 
-    models = MyModel.objects.all()
-    return render(request, 'model_list.html', {'models': models})
 
 def salir(request):
     logout(request)
@@ -32,21 +30,42 @@ def model_detail(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
     return render(request, 'model_detail.html', {'model': model})
 
+def model_list(request):
+    models = MyModel.objects.all()
+    return render(request, 'model_list.html', {'models': models})
 
 def model_create(request):
     if request.method == 'POST':
         form = MyModelForm(request.POST, request.FILES)
         if form.is_valid():
-            # Guarda el formulario y establece campos vacíos si no se ingresaron valores
             instance = form.save(commit=False)
             for field_name, field_value in instance.__dict__.items():
-                if not field_value and field_name != 'id':  # Excluir el campo 'id' de la lógica
+                if not field_value and field_name != 'id':
                     setattr(instance, field_name, 'VACÍO')
             instance.save()
             return redirect('model_list')
     else:
         form = MyModelForm()
     return render(request, 'model_form.html', {'form': form})
+
+def model_update(request, pk):
+    model = get_object_or_404(MyModel, pk=pk)
+    if request.method == 'POST':
+        form = MyModelForm(request.POST, instance=model)
+        cambio_form = CambioCustodioForm(request.POST)
+        if form.is_valid() and cambio_form.is_valid():
+            model = form.save()
+            cambio = cambio_form.save(commit=False)
+            cambio.modelo_relacionado = model
+            cambio.fecha_cambio = timezone.now()  # Asigna la fecha actual
+            cambio.save()
+            return redirect('model_list')
+    else:
+        form = MyModelForm(instance=model)
+        cambio_form = CambioCustodioForm()
+    return render(request, 'actualizar.html', {'form': form, 'cambio_custodio_form': cambio_form, 'model': model})
+
+
 
 
 
@@ -67,19 +86,7 @@ def model_confirm_actualizar(request, pk):
     return render(request, 'model_confirm_actualizar.html', {'form': form, 'model': model})
 
 
-def model_update(request, pk):
-    model = get_object_or_404(MyModel, pk=pk)
-    if request.method == 'POST':
-        form = MyModelForm(request.POST, instance=model)
-        if form.is_valid():
-            # Redirige a la confirmación sin guardar los cambios
-            request.session['form_data'] = form.cleaned_data
-            return redirect('model_confirm_actualizar', pk=model.pk)
-    else:
-        form = MyModelForm(instance=model)
-        
-    return render(request, 'actualizar.html', {'form': form, 'model': model})
-    
+
 
 def model_confirm_delete(request, pk):
     model = get_object_or_404(MyModel, pk=pk)

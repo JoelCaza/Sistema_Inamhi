@@ -23,6 +23,17 @@
                 </thead>
                 <tbody>
                     {{ form.as_table }}
+                    <!-- Agregar formulario para CambioCustodio -->
+                    <tr>
+                        <th></th>
+                        <th>Cambio de Custodio</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            {{ cambio_custodio_form.as_table }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="button-container">
@@ -31,6 +42,5 @@
             </div>
         </form>
     </div>
-
 </body>
 </html>
