@@ -104,7 +104,7 @@ def model_delete(request, pk):
 
 #Exportacion de EXCEL
 def export_to_excel(request):
-    queryset = MyModel.objects.all()
+    queryset = MyModel.objects.filter(estado_registro=True)
 
     # Crear un libro de trabajo y una hoja de trabajo
     wb = Workbook()
@@ -129,7 +129,7 @@ def export_to_excel(request):
 
 #EXPORTA EL PDF
 def export_to_pdf(request):
-    queryset = MyModel.objects.all()
+    queryset = MyModel.objects.filter(estado_registro=True)
 
     # Crear un archivo PDF
     pdf_buffer = BytesIO()
