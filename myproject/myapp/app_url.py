@@ -2,6 +2,11 @@ from django.urls import path
 from . import views
 from django.contrib.auth.views import LoginView
 from tickets import views as ticket_views  # Importa las vistas de tickets
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+
 
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),
@@ -19,4 +24,4 @@ urlpatterns = [
     path('export/', views.export_to_excel, name='export_to_excel'),
     path('exportpdf/', views.export_to_pdf, name='export_to_pdf'),
     path('salir/', views.salir, name="salir")
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

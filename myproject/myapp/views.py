@@ -51,7 +51,7 @@ def model_create(request):
 def model_update(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
     if request.method == 'POST':
-        form = MyModelForm(request.POST, instance=model)
+        form = MyModelForm(request.POST, request.FILES, instance=model)
         cambio_form = CambioCustodioForm(request.POST)
         if form.is_valid() and cambio_form.is_valid():
             model = form.save()
@@ -63,6 +63,8 @@ def model_update(request, pk):
     else:
         form = MyModelForm(instance=model)
         cambio_form = CambioCustodioForm()
+
+
     return render(request, 'actualizar.html', {'form': form, 'cambio_custodio_form': cambio_form, 'model': model})
 
 
