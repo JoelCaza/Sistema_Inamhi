@@ -1,8 +1,21 @@
 from django.db import models
+from datetime import timedelta
+from django.utils import timezone
+from django.utils.timezone import now
 
 class Ticket(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
+    # llave primaria
+    titulo = models.CharField(max_length=200, verbose_name='titulo')
+    asunto = models.TextField(max_length=100, verbose_name='asunto')
+    proyecto = models.TextField(max_length=200, verbose_name='proyecto')
+    departamento = models.TextField(max_length=200, verbose_name='departamento')
+    estado = models.CharField(max_length=200, verbose_name='estado')
+    fecha = models.DateTimeField(default=now, verbose_name='fecha')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # Otros campos que puedas necesitar...
+
+def __str__(self):
+    texto = "{0} ({1})"
+    return texto.formats(self.titulo, self.asunto, self.proyecto, self.departamento, self.estado, self.fecha) 
+
