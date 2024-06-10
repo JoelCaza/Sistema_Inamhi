@@ -21,19 +21,19 @@ from django.utils import timezone
 def dashboard(request):
     return render(request, 'registration/dashboard.html')
 
-
+@login_required
 def salir(request):
     logout(request)
     return redirect('/')
-
+@login_required
 def model_detail(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
     return render(request, 'model_detail.html', {'model': model})
-
+@login_required
 def model_list(request):
     models = MyModel.objects.all()
     return render(request, 'model_list.html', {'models': models})
-
+@login_required
 def model_create(request):
     if request.method == 'POST':
         form = MyModelForm(request.POST, request.FILES)
@@ -47,7 +47,7 @@ def model_create(request):
     else:
         form = MyModelForm()
     return render(request, 'model_form.html', {'form': form})
-
+@login_required
 def model_update(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
     if request.method == 'POST':
@@ -69,7 +69,7 @@ def model_update(request, pk):
 
 
 
-
+@login_required
 def model_confirm_actualizar(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
     if request.method == 'POST':
@@ -87,12 +87,12 @@ def model_confirm_actualizar(request, pk):
 
 
 
-
+@login_required
 def model_confirm_delete(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
     return render(request, 'model_confirm_delete.html', {'model': model})
 
-
+@login_required
 def model_delete(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
     if request.method == 'POST':
