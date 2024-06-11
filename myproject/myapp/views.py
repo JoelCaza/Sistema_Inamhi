@@ -54,7 +54,11 @@ def model_update(request, pk):
         form = MyModelForm(request.POST, request.FILES, instance=model)
         cambio_form = CambioCustodioForm(request.POST)
         if form.is_valid() and cambio_form.is_valid():
-            model = form.save()
+            model = form.save(commit=False)
+            if 'archivo' in request.FILES:
+                model.archivo = request.FILES['archivo']
+                model.save()
+
             cambio = cambio_form.save(commit=False)
             cambio.modelo_relacionado = model
             cambio.fecha_cambio = timezone.now()  # Asigna la fecha actual
