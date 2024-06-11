@@ -9,13 +9,13 @@ def ticket_list(request):
 # para registrar los tickets
 def registrarticket(request):
     asunto=request.POST['asunto']
-    proyecto=request.POST['proyecto']
+    descripcion=request.POST['descripcion']
     departamento=request.POST['departamento']
     estado=request.POST['estado']
     fecha_str = request.POST.get('fecha')
     fecha = datetime.strptime(fecha_str, '%Y-%m-%d')
 
-    tickets = Ticket.objects.create(asunto=asunto, proyecto=proyecto, departamento=departamento, estado=estado, fecha=fecha)
+    tickets = Ticket.objects.create(asunto=asunto, descripcion=descripcion, departamento=departamento, estado=estado, fecha=fecha)
     return redirect('ticket_list')
 
 # para elistar los tickets
@@ -30,7 +30,7 @@ def edicionticket(request, id):
 def editarticket(request, id):
 
     asunto=request.POST['asunto']
-    proyecto=request.POST['proyecto']
+    descripcion=request.POST['descripcion']
     departamento=request.POST['departamento']
     estado=request.POST['estado']
     fecha_str = request.POST.get('fecha')
@@ -38,7 +38,7 @@ def editarticket(request, id):
     
     tickets = Ticket.objects.get(id=id)
     tickets.asunto = asunto
-    tickets.proyecto = proyecto
+    tickets.descripcion = descripcion
     tickets.departamento = departamento
     tickets.estado = estado
     tickets.fecha = fecha

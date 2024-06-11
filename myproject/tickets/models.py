@@ -7,7 +7,7 @@ class Ticket(models.Model):
     # llave primaria
     titulo = models.CharField(max_length=200, verbose_name='titulo')
     asunto = models.TextField(max_length=100, verbose_name='asunto')
-    proyecto = models.TextField(max_length=200, verbose_name='proyecto')
+    descripcion = models.TextField(max_length=200, verbose_name='descipcion')
     departamento = models.TextField(max_length=200, verbose_name='departamento')
     estado = models.CharField(max_length=200, verbose_name='estado')
     fecha = models.DateTimeField(default=now, verbose_name='fecha')
@@ -17,5 +17,5 @@ class Ticket(models.Model):
 
 def __str__(self):
     texto = "{0} ({1})"
-    return texto.formats(self.titulo, self.asunto, self.proyecto, self.departamento, self.estado, self.fecha) 
+    return texto.formats(self.titulo, self.asunto, self.descripcion, self.departamento, self.estado, self.fecha) 
 
