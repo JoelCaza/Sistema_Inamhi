@@ -1,6 +1,6 @@
 # views.py
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import MyModel
+from .models import MyModel,CambioCustodio
 from .forms import MyModelForm, CambioCustodioForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -79,17 +79,23 @@ def model_update(request, pk):
                 model.archivo = request.FILES['archivo']
                 model.save()
 
-            cambio = cambio_form.save(commit=False)
-            cambio.modelo_relacionado = model
+            # Verificar si ya existe un objeto CambioCustodio para este modelo
+            cambio = model.cambiocustodio_set.first()
+            if not cambio:
+                cambio = CambioCustodio(modelo_relacionado=model)
+            cambio.nuevo_custodio = cambio_form.cleaned_data['nuevo_custodio']
+            cambio.cedula_nuevo_custodio = cambio_form.cleaned_data['cedula_nuevo_custodio']
             cambio.fecha_cambio = timezone.now()  # Asigna la fecha actual
             cambio.save()
-            return redirect('model_list')
+
+            return redirect('model_list')  # Redirigir a la lista de modelos después de la actualización
     else:
         form = MyModelForm(instance=model)
         cambio_form = CambioCustodioForm()
 
-
     return render(request, 'actualizar.html', {'form': form, 'cambio_custodio_form': cambio_form, 'model': model})
+
+
 
 
 
