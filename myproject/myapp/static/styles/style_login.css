@@ -43,7 +43,7 @@ main{
     height: 365px;
     /* para que las cajas esten una con otra con display:flex  */
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     /* para poner un fondo difuminado  */
     backdrop-filter: blur(10px);
     /* poner color y opacidad con el 0.5 */
@@ -106,6 +106,8 @@ main{
     /* el ancho que va a medir los formularios */
     max-width: 380px;
     position: relative;
+    justify-content: flex-end; /* Alinea el contenido a la derecha */
+    width: 100%;
     /* se posicione en el centro  */
     top: -185px;
     /* para que nos deje un pequeño espacio  */

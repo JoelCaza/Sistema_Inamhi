@@ -2,10 +2,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import MyModel
 from .forms import MyModelForm, CambioCustodioForm
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.http import HttpResponse
 from openpyxl import Workbook
+from .forms import CustomUserCreationForm
 from reportlab.lib.pagesizes import letter, landscape
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle,Paragraph
 from reportlab.lib import colors
@@ -13,8 +15,26 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from django.http import HttpResponse
 from io import BytesIO
 from django.utils import timezone
+from django.contrib import messages
 
 
+def home(request):
+    return render(request, 'registration/login.html')
+
+def register(request):
+    data = {
+        'form': CustomUserCreationForm() 
+    }
+    if request.method == 'POST':
+        user_creation_form = CustomUserCreationForm(data=request.POST)
+        if user_creation_form.is_valid():
+            user_creation_form.save()
+            user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
+            login(request, user)
+            messages.success(request, '¡Usuario registrado correctamente!')
+            return redirect('login')
+
+    return render(request, 'registration/register.html', data)
 
 # @login_required llama al login antes de que entre a el siguiente metodo
 @login_required

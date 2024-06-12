@@ -1,5 +1,23 @@
 from django import forms
 from .models import MyModel, CambioCustodio
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
+
+
+class CustomAuthenticationForm(AuthenticationForm):
+    error_messages = {
+        'invalid_login': "Por favor, introduzca un nombre de usuario y contraseña correctos. Por favor, note que ambos campos son sensibles a mayúsculas.",
+        'inactive': "Esta cuenta está inactiva.",
+    }
+
+class CustomUserCreationForm(UserCreationForm):
+    
+    class Meta:
+        model = User
+        fields = ['username','first_name','last_name','password1','password2']
+
+
 
 class MyModelForm(forms.ModelForm):
     class Meta:
