@@ -1,7 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     background-image: radial-gradient(circle 800px,#6437b7,#4d338a, #2b2a2c);
-    color: #333;
+    color: fff;
+    background-color: #fff;
     margin: 0;
     padding: 0;
     z-index: 1;
@@ -9,7 +10,6 @@ body {
 }
 
 .container {
-    max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -49,9 +49,20 @@ h5{
 }
 
 .table {
-    width: 100%;
-    background-color: #fff;
+    font-size: 12px; /* Ajusta el tamaño de la fuente */
+    max-width: 100%; /* Limita el ancho de la tabla al 100% del contenedor */
+    background-color: #fff; /* Establece el color de fondo de la tabla */
+    overflow-x: auto; /* Agrega desplazamiento horizontal si la tabla excede el ancho del contenedor */
+
+    /* Estilos para pantallas más pequeñas */
+    @media screen and (max-width: 1024px) {
+        overflow-x: auto; /* Agrega desplazamiento horizontal si la tabla excede el ancho del contenedor */
+
+        font-size: 8px;
+        width: 95%;/* Reducir tamaño de fuente en dispositivos más pequeños */
+    }
 }
+
 
 .table thead th {
     background-color: #007bff;
@@ -89,4 +100,8 @@ h5{
     max-width: 200px;
     display: block;
     margin: 0 auto;
+}
+.table-container {
+    max-width: 90%; /* Ancho máximo del 90% de la pantalla */
+    margin: 0 auto; /* Centrar el contenedor horizontalmente */
 }
