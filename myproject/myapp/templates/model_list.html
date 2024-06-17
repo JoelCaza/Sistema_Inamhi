@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Inventario</title>
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/model_list.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-   
+    <!-- Tu hoja de estilos personalizada -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/model_list.css' %}">
 </head>
 <body>
     <div class="container">
@@ -46,7 +47,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col"></th>
+                    <th scope="col">Codigo TICS</th>
                     <th scope="col">Código Bien</th>
                     <th scope="col">Código Anterior</th>
                     <th scope="col">Código Provisional</th>
@@ -104,10 +105,10 @@
             </tbody>
         </table>
     </div>
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Font Awesome JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
     <!-- Script de búsqueda -->
     <script>
         document.getElementById('searchInput').addEventListener('keyup', function() {
@@ -135,5 +136,4 @@
         });
     </script>
 </body>
-
 </html>
