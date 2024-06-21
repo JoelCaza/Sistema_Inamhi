@@ -102,13 +102,8 @@ main{
     /* el ancho que va a medir los formularios */
     /* max-width: 380px; */
     position: relative;
-    /* se posicione en el centro  */
-    top: -120px;
-    /* para que nos deje un pequeño espacio  */
-    left: 40%;
-    /* este es para al transicion al dar clic en el boton regristro  con1.275 */
-    /* transition: propiedad duracion tiempo-funcion retardo:*/
-   }
+    margin-top: 30%;
+}
 .contenedor__login-register form{
     width: 100%;
     /* 80px de arirba y abajo y de izquiera a derecha20px */
@@ -117,7 +112,6 @@ main{
     /* posision absoluta para que le podamos mover  */
     position: absolute;
     border-radius: 20px;
-    
 }
 /* tiutlo h2  */
 .contenedor__login-register form h2{

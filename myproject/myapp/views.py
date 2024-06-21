@@ -32,7 +32,7 @@ def register(request):
             user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
             login(request, user)
             messages.success(request, '¡Usuario registrado correctamente!')
-            return redirect('login')
+            return redirect('register')
 
     return render(request, 'registration/register.html', data)
 
