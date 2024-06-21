@@ -32,8 +32,9 @@
         </div>
         
         <div class="mb-4">
-           
+            {% if perms.myapp.change_mymodel %}
             <a href="{% url 'model_create' %}" class="btn btn-primary btn-action"><i class="fas fa-plus"></i> Añadir Producto</a>
+            {% endif %}
             <a href="{% url 'export_to_excel' %}" class="btn btn-success btn-action"><i class="fas fa-file-excel"></i> Exportar a Excel</a>
             <a href="{% url 'export_to_pdf' %}" class="btn btn-warning btn-action"><i class="fas fa-file-pdf"></i> Exportar a PDF</a>
         </div>
@@ -96,8 +97,12 @@
                             {% endfor %}
                             <td>
                                 <a href="{% url 'model_detail' pk=model.pk %}" class="btn btn-info btn-sm btn-action"><i class="far fa-eye"></i> Ver</a>
+                                {% if perms.myapp.change_mymodel %}
                                 <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-sm btn-action"><i class="far fa-edit"></i> Editar</a>
+                                {% endif %}
+                                {% if perms.myapp.delete_mymodel %}
                                 <a href="{% url 'model_delete' pk=model.pk %}" class="btn btn-danger btn-sm btn-action"><i class="far fa-trash-alt"></i> Eliminar</a>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endif %}
