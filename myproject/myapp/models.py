@@ -31,3 +31,11 @@ class CambioCustodio(models.Model):
 
     def __str__(self):
         return f"Cambio de custodio para {self.modelo_relacionado.nombre_bien} el {self.fecha_cambio}"
+
+
+class Meta:
+        permissions = [
+            ("view_mymodel", "Can view MyModel"),
+            ("change_mymodel", "Can change MyModel"),
+            ("delete_mymodel", "Can delete MyModel"),
+        ]

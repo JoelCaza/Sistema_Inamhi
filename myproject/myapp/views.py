@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import MyModel,CambioCustodio
 from .forms import MyModelForm, CambioCustodioForm
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import logout
 from django.http import HttpResponse
 from openpyxl import Workbook
@@ -16,6 +16,9 @@ from django.http import HttpResponse
 from io import BytesIO
 from django.utils import timezone
 from django.contrib import messages
+from django.contrib.auth.models import Permission
+from django.db import migrations
+
 
 
 def home(request):
@@ -23,18 +26,109 @@ def home(request):
 
 def register(request):
     data = {
-        'form': CustomUserCreationForm() 
+        'form': CustomUserCreationForm()
     }
     if request.method == 'POST':
         user_creation_form = CustomUserCreationForm(data=request.POST)
         if user_creation_form.is_valid():
-            user_creation_form.save()
+            user = user_creation_form.save()
+            permission = Permission.objects.get(codename='Can_view_mymodel')
+            user.user_permissions.add(permission)
             user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
             login(request, user)
             messages.success(request, '¡Usuario registrado correctamente!')
             return redirect('register')
 
     return render(request, 'registration/register.html', data)
+
+
+#Permisos required
+@login_required
+@permission_required('myapp.can_view_mymodel', raise_exception=True)
+def model_detail(request, pk):
+    model = get_object_or_404(MyModel, pk=pk)
+    return render(request, 'model_detail.html', {'model': model})
+
+@permission_required('myapp.can_view_mymodel', raise_exception=True)
+def model_list(request):
+    models = MyModel.objects.all()
+    return render(request, 'model_list.html', {'models': models})
+
+@login_required
+@permission_required('myapp.can_view_mymodel', raise_exception=True)
+def model_create(request):
+    if request.method == 'POST':
+        form = MyModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            for field_name, field_value in instance.__dict__.items():
+                if not field_value and field_name != 'id':
+                    setattr(instance, field_name, 'VACÍO')
+            instance.save()
+            return redirect('model_list')
+    else:
+        form = MyModelForm()
+    return render(request, 'model_form.html', {'form': form})
+
+@login_required
+@permission_required('myapp.can_view_mymodel', raise_exception=True)
+def model_update(request, pk):
+    model = get_object_or_404(MyModel, pk=pk)
+    if request.method == 'POST':
+        form = MyModelForm(request.POST, request.FILES, instance=model)
+        cambio_form = CambioCustodioForm(request.POST)
+        if form.is_valid() and cambio_form.is_valid():
+            model = form.save(commit=False)
+            if 'archivo' in request.FILES:
+                model.archivo = request.FILES['archivo']
+                model.save()
+
+            cambio = model.cambiocustodio_set.first()
+            if not cambio:
+                cambio = CambioCustodio(modelo_relacionado=model)
+            cambio.nuevo_custodio = cambio_form.cleaned_data['nuevo_custodio']
+            cambio.cedula_nuevo_custodio = cambio_form.cleaned_data['cedula_nuevo_custodio']
+            cambio.fecha_cambio = timezone.now()
+            cambio.save()
+
+            return redirect('model_list')
+    else:
+        form = MyModelForm(instance=model)
+        cambio_form = CambioCustodioForm()
+
+    return render(request, 'actualizar.html', {'form': form, 'cambio_custodio_form': cambio_form, 'model': model})
+
+@login_required
+@permission_required('myapp.can_view_mymodel', raise_exception=True)
+def model_confirm_actualizar(request, pk):
+    model = get_object_or_404(MyModel, pk=pk)
+    if request.method == 'POST':
+        form_data = request.session.get('form_data')
+        if form_data:
+            form = MyModelForm(form_data, instance=model)
+            if form.is_valid():
+                form.save()
+                return redirect('model_list')
+                
+    else:
+        form = MyModelForm(instance=model)
+    return render(request, 'model_confirm_actualizar.html', {'form': form, 'model': model})
+
+@login_required
+@permission_required('myapp.can_view_mymodel', raise_exception=True)
+def model_confirm_delete(request, pk):
+    model = get_object_or_404(MyModel, pk=pk)
+    return render(request, 'model_confirm_delete.html', {'model': model})
+
+@login_required
+@permission_required('myapp.can_view_mymodel', raise_exception=True)
+def model_delete(request, pk):
+    model = get_object_or_404(MyModel, pk=pk)
+    if request.method == 'POST':
+        model.estado_registro = False
+        model.save()
+        return redirect('model_list')
+    return redirect('model_confirm_delete', pk=pk)
 
 # @login_required llama al login antes de que entre a el siguiente metodo
 @login_required
