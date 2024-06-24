@@ -31,7 +31,7 @@
         </div>
     </div>
     <div class="container btn-container">
-        <a href="{% url 'model_list' %}" class="btn btn-secondary btn-actions mr-2">Regresar</a>
+        <a href="{% url 'model_list' %}" class="btn btn-secondary btn-actions mr-2" onclick="saveScrollPosition()">Regresar</a>
         {% if perms.myapp.change_mymodel %}
         <a href="{% url 'model_update' pk=model.pk %}" class="btn btn-warning btn-actions mr-2">Actualizar</a>
         {% endif %}
