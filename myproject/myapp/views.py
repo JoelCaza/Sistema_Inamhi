@@ -32,8 +32,6 @@ def register(request):
         user_creation_form = CustomUserCreationForm(data=request.POST)
         if user_creation_form.is_valid():
             user = user_creation_form.save()
-            permission = Permission.objects.get(codename='Can_view_mymodel')
-            user.user_permissions.add(permission)
             user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
             login(request, user)
             messages.success(request, '¡Usuario registrado correctamente!')
