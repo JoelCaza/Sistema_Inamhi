@@ -1,12 +1,11 @@
+
+
 body {
     font-family: Arial, sans-serif;
-    background-image: radial-gradient(circle 800px,#6437b7,#4d338a, #2b2a2c);
-    color: fff;
-    background-color: #fff;
-    margin: 0;
-    padding: 0;
-    z-index: 1;
-
+    background-image: radial-gradient(circle 800px, #6437b7, #4d338a, #2b2a2c);
+    color: #fff;
+    margin: 0; /* Elimina el margen predeterminado del body */
+    padding: 0; /* Elimina el relleno predeterminado del body */
 }
 
 .container {
@@ -15,19 +14,16 @@ body {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-
 }
 
 h1 {
     color: #007bff;
     margin-bottom: 30px;
     text-align: center;
-
 }
-h5{
-    font-weight:bold;
 
+h5 {
+    font-weight: bold;
 }
 
 .btn-action {
@@ -49,20 +45,11 @@ h5{
 }
 
 .table {
-    font-size: 12px; /* Ajusta el tamaño de la fuente */
-    max-width: 100%; /* Limita el ancho de la tabla al 100% del contenedor */
-    background-color: #fff; /* Establece el color de fondo de la tabla */
-    overflow-x: auto; /* Agrega desplazamiento horizontal si la tabla excede el ancho del contenedor */
-
-    /* Estilos para pantallas más pequeñas */
-    @media screen and (max-width: 1024px) {
-        overflow-x: auto; /* Agrega desplazamiento horizontal si la tabla excede el ancho del contenedor */
-
-        font-size: 8px;
-        width: 95%;/* Reducir tamaño de fuente en dispositivos más pequeños */
-    }
+    font-size: 12px; /* Tamaño de fuente normal */
+    width: 100%; /* Ajusta la tabla al 100% del contenedor */
+    background-color: #fff;
+    table-layout: fixed; /* Fijar el ancho de las columnas */
 }
-
 
 .table thead th {
     background-color: #007bff;
@@ -88,8 +75,6 @@ h5{
     position: relative;
 }
 
-
-
 .header-image {
     margin-bottom: 10px;
 }
@@ -101,7 +86,9 @@ h5{
     display: block;
     margin: 0 auto;
 }
+
 .table-container {
-    max-width: 80%; /* Ancho máximo del 90% de la pantalla */
+    max-width: 100%; /* Ancho máximo del 100% de la pantalla */
+    overflow-x: auto; /* Agregar desplazamiento horizontal si la tabla excede el ancho del contenedor */
     margin: 0 auto; /* Centrar el contenedor horizontalmente */
 }
