@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulario MyModel</title>
+</head>
+<body>
+    <h1>Formulario MyModel</h1>
+    <form method="post" id="myForm">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+
+    <div id="errorContainer" style="display:none; color:red;">
+        <ul id="errorList">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var errorContainer = document.getElementById('errorContainer');
+            var errorList = document.getElementById('errorList');
+
+            if (errorList.children.length > 0) {
+                errorContainer.style.display = 'block';
+            }
+
+            document.getElementById('myForm').addEventListener('submit', function(event) {
+                var errors = document.querySelectorAll('#errorList li');
+                if (errors.length > 0) {
+                    errorContainer.style.display = 'block';
+                    event.preventDefault();
+                } else {
+                    errorContainer.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -47,6 +47,7 @@ def model_create(request):
     else:
         form = MyModelForm()
     return render(request, 'model_form.html', {'form': form})
+    
 @login_required
 def model_update(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
@@ -190,3 +191,4 @@ def export_to_pdf(request):
     pdf_response['Content-Disposition'] = 'attachment; filename=Reporte.pdf'
 
     return pdf_response
+
