@@ -1,24 +1,22 @@
 # views.py
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import MyModel,CambioCustodio
-from .forms import MyModelForm, CambioCustodioForm
-from django.contrib.auth import authenticate, login
+from .models import MyModel, CambioCustodio
+from .forms import MyModelForm, CambioCustodioForm, CustomUserCreationForm
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth import logout
 from django.http import HttpResponse
 from openpyxl import Workbook
-from .forms import CustomUserCreationForm
 from reportlab.lib.pagesizes import letter, landscape
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle,Paragraph
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from django.http import HttpResponse
 from io import BytesIO
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth.models import Permission
 from django.db import migrations
-
+from reportlab.lib.units import inch
+import pytz
 
 
 def home(request):
@@ -59,7 +57,7 @@ def model_create(request):
         form = MyModelForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
-            for field_name, field_value in instance.__dict__.items():
+            for field_name, field_value in instance._dict_.items():
                 if not field_value and field_name != 'id':
                     setattr(instance, field_name, 'VACÍO')
             instance.save()
@@ -151,7 +149,7 @@ def model_create(request):
         form = MyModelForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
-            for field_name, field_value in instance.__dict__.items():
+            for field_name, field_value in instance._dict_.items():
                 if not field_value and field_name != 'id':
                     setattr(instance, field_name, 'VACÍO')
             instance.save()
@@ -159,7 +157,6 @@ def model_create(request):
     else:
         form = MyModelForm()
     return render(request, 'model_form.html', {'form': form})
-    
 @login_required
 def model_update(request, pk):
     model = get_object_or_404(MyModel, pk=pk)
@@ -187,11 +184,6 @@ def model_update(request, pk):
         cambio_form = CambioCustodioForm()
 
     return render(request, 'actualizar.html', {'form': form, 'cambio_custodio_form': cambio_form, 'model': model})
-
-
-
-
-
 
 
 @login_required
@@ -252,7 +244,6 @@ def export_to_excel(request):
 
     return response
 
-#EXPORTA EL PDF
 def export_to_pdf(request):
     queryset = MyModel.objects.filter(estado_registro=True)
 
@@ -262,22 +253,47 @@ def export_to_pdf(request):
 
     # Configurar estilos para el PDF
     styles = getSampleStyleSheet()
+    # Añadir un nuevo estilo de párrafo con una fuente más pequeña (8 puntos) y un interlineado ajustado (10 puntos)
+    styles.add(ParagraphStyle(name='TableStyle', fontSize=8, leading=10))
+    font_size = 8  # Reducir el tamaño de la fuente para ajustarse mejor a las celdas
 
-    # Tamaño de fuente relativo
-    font_size = 10
+    # Añadir título y fecha de generación
+    title = "Reporte de Bienes 2024"
+    timezone_bogota = pytz.timezone('America/Bogota')
+    fecha_generacion = f"Fecha de generación: {timezone.localtime(timezone.now(), timezone_bogota).strftime('%d-%m-%Y %H:%M:%S')}"
+
+
+    title_paragraph = Paragraph(title, styles['Title'])
+    date_paragraph = Paragraph(fecha_generacion, styles['Normal'])
 
     # Crear datos para la tabla en el PDF
     data = []
     column_names = ['codigo_bien', 'codigo_anterior', 'codigo_provisional', 'codigo_nuevo',
-                    'nombre_bien', 'serie', 'modelo', 'marca', 'color', 'material', 'estado',
-                    'ubicacion', 'cedula', 'custodio_actual', 'observacion']
+                    'nombre_bien', 'serie', 'cedula', 'custodio_actual', 'archivo', 'nuevo_custodio', 'cedula_nuevo_custodio', 'fecha_cambio']
     data.append(column_names)
+
+    # Obtener los valores de los campos para cada objeto en el queryset
     for item in queryset:
-        data.append([getattr(item, col) for col in column_names])
+        row = []
+        for col in column_names:
+            value = getattr(item, col, None)
+            if value is None:
+                # Manejar campos relacionados (ForeignKey, OneToOneField)
+                if hasattr(item, col):
+                    related_obj = getattr(item, col)
+                    value = str(related_obj)
+                else:
+                    value = 'N/A'
+            elif isinstance(value, (str, int)):
+                value = str(value)
+            else:
+                value = 'N/A'
+            row.append(value)
+        data.append(row)
 
     # Calcular el ancho de la tabla en función del tamaño de la página
     page_width, page_height = pdf.pagesize
-    available_width = page_width * 0.9  # Por ejemplo, el 90% del ancho de la página
+    available_width = page_width * 0.95  # Usar el 95% del ancho de la página
     column_width = available_width / len(column_names)
 
     # Crear la tabla en el PDF
@@ -285,28 +301,33 @@ def export_to_pdf(request):
     for row in data:
         table_row = []
         for item in row:
+            # Ajustar el contenido de las celdas si es demasiado largo
             adjusted_item = item[:50] + '...' if len(item) > 50 else item
-            table_row.append(Paragraph(adjusted_item, styles['Normal']))
+            table_row.append(Paragraph(adjusted_item, styles['TableStyle']))
         table_data.append(table_row)
 
     table = Table(table_data, colWidths=[column_width] * len(column_names))
 
     # Configurar estilos para la tabla
-    style = TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.gray),
-                        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-                        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-                        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-                        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-                        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-                        ('GRID', (0, 0), (-1, -1), 1, colors.black)])
+    style = TableStyle([('BACKGROUND', (0, 0), (-1, 0), colors.gray),  # Fondo gris para la fila de encabezado
+                        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),  # Texto blanco para la fila de encabezado
+                        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),  # Alinear el texto a la izquierda
+                        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),  # Fuente en negrita para la fila de encabezado
+                        ('FONTSIZE', (0, 0), (-1, -1), font_size),  # Aplicar el tamaño de fuente reducido
+                        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),  # Relleno inferior para la fila de encabezado
+                        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),  # Fondo beige para las demás filas
+                        ('GRID', (0, 0), (-1, -1), 1, colors.black),  # Líneas de cuadrícula negras
+                        ('VALIGN', (0, 0), (-1, -1), 'TOP'),  # Alinear el contenido de las celdas en la parte superior
+                        ('LEFTPADDING', (0, 0), (-1, -1), 2),  # Reducir el relleno izquierdo
+                        ('RIGHTPADDING', (0, 0), (-1, -1), 2),  # Reducir el relleno derecho
+                        ('TOPPADDING', (0, 0), (-1, -1), 2)])  # Reducir el relleno superior
     table.setStyle(style)
 
     # Construir el PDF
-    pdf.build([table])
+    pdf.build([title_paragraph, Spacer(1, 0.2 * inch), date_paragraph, Spacer(1, 0.5 * inch), table])
 
     # Obtener el contenido del PDF como un HttpResponse
     pdf_response = HttpResponse(pdf_buffer.getvalue(), content_type='application/pdf')
     pdf_response['Content-Disposition'] = 'attachment; filename=Reporte.pdf'
 
     return pdf_response
-
