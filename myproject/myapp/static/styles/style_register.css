@@ -43,19 +43,14 @@ main{
     height: 365px;
     /* para que las cajas esten una con otra con display:flex  */
     display: flex;
-    justify-content: flex-end;
+    justify-content:flex-start;
     /* para poner un fondo difuminado  */
     backdrop-filter: blur(10px);
     /* poner color y opacidad con el 0.5 */
     background-color: RGB(114,79,152);
     border-radius: 15px;
 }
-.caja_trasera img{
-    transform: translateX(95%);
-    width: 60%;
-    margin-top: -50px;
-  
-}
+
 .caja_trasera div{
     /* para que tenga 100px de alto y de ancho 40px  */
     margin: 100px 40px;
@@ -102,24 +97,17 @@ main{
     display: flex;
     /* para posicioanrlo en el centro  */
     align-items: center;
-    width: 100%;
+    width: 90%;
+    justify-content: center;
     /* el ancho que va a medir los formularios */
-    max-width: 380px;
+    /* max-width: 380px; */
     position: relative;
-    justify-content: flex-end; /* Alinea el contenido a la derecha */
-    width: 100%;
-    /* se posicione en el centro  */
-    top: -185px;
-    /* para que nos deje un pequeño espacio  */
-    left: 10px;
-    /* este es para al transicion al dar clic en el boton regristro  con1.275 */
-    /* transition: propiedad duracion tiempo-funcion retardo:*/
-    transition: left 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
+    margin-top: 30%;
 }
 .contenedor__login-register form{
     width: 100%;
     /* 80px de arirba y abajo y de izquiera a derecha20px */
-    padding: 80px 20px;
+    padding: 20px 20px;
     background: white;
     /* posision absoluta para que le podamos mover  */
     position: absolute;
@@ -164,9 +152,7 @@ main{
     display: block;
 }
 /* para que desaparesca el formulario de registro y aparesca el de iniciar sesion  */
-.formulario__registro{
-    display: none;
-}
+
 /* Responsive */
 /* cuando la pagina tenga un acncho de 850px */
 @media screen and (max-width: 850px){

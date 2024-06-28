@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from django.contrib.auth.views import LoginView
+from .views import register, home
 from tickets import views as ticket_views  # Importa las vistas de tickets
 from django.conf import settings
 from django.conf.urls.static import static
@@ -11,6 +12,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),
     path('accounts/login/', LoginView.as_view(), name='login'),
+    path('', home, name='home'),
+    path('register/', register, name='register'),
     path('admin', views.login_required, name='login'),
     path('model_list/', views.model_list, name='model_list'),
     path('ticket/', ticket_views.ticket_list, name='ticket_list'),  # Usa la vista de tickets.ticket_list
