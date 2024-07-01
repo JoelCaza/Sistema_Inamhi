@@ -1,4 +1,5 @@
 from django.db import models
+#librerias
 
 class MyModel(models.Model):
     # Campos del modelo MyModel

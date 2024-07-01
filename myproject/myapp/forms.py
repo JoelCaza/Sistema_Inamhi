@@ -42,6 +42,7 @@ class MyModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance.pk is None:  # Si el registro no existe (es decir, estamos en la creación)
+            # Si el registro no existe (es decir, estamos en la creación)
             for field_name in self.fields:
                 if field_name != 'archivo':
                     self.fields[field_name].required = False

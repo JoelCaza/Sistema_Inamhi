@@ -6,7 +6,7 @@ from tickets import views as ticket_views  # Importa las vistas de tickets
 from django.conf import settings
 from django.conf.urls.static import static
 
-
+# Importa las vistas de tickets
 
 
 urlpatterns = [
