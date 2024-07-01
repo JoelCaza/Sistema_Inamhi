@@ -33,9 +33,10 @@ def register(request):
         if user_creation_form.is_valid():
             user = user_creation_form.save()
             user = authenticate(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'])
-            login(request, user)
-            messages.success(request, '¡Usuario registrado correctamente!')
-            return redirect('register')
+            if user is not None:
+                login(request, user)
+                messages.success(request, '¡Usuario registrado correctamente!')
+                return redirect('register')
 
     return render(request, 'registration/register.html', data)
 

@@ -1,9 +1,10 @@
 from django import forms
 from .models import MyModel, CambioCustodio
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import AuthenticationForm
-
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 class CustomAuthenticationForm(AuthenticationForm):
     error_messages = {
@@ -16,8 +17,19 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username','first_name','last_name','password1','password2']
-        
-
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('register','Register'))
+    
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+            viewers_group = Group.objects.get(name='viewers')
+            user.groups.add(viewers_group)
+            return User
 
 
 class MyModelForm(forms.ModelForm):

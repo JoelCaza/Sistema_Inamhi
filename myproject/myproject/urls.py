@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from tickets import views
+from myapp.views import register
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -10,6 +11,6 @@ urlpatterns = [
     path('eliminarticket/', views.eliminarticket, name='eliminarticket'),
     path('editarticket/<int:id>/', views.editarticket, name='editarticket'),
     path('accounts/', include('django.contrib.auth.urls')),
-   
+    path('register/', register, name='register'),
    
 ]
