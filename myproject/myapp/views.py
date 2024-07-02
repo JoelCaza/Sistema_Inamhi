@@ -332,3 +332,9 @@ def export_to_pdf(request):
     pdf_response['Content-Disposition'] = 'attachment; filename=Reporte.pdf'
 
     return pdf_response
+
+
+
+
+def recover(request):
+    return render(request, 'recover.html')

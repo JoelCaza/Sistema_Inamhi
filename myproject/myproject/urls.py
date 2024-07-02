@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from tickets import views
-from myapp.views import register
+from myapp.views import register,recover
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -12,5 +12,6 @@ urlpatterns = [
     path('editarticket/<int:id>/', views.editarticket, name='editarticket'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', register, name='register'),
+    path('recover/', recover, name='recover'),
    
 ]
