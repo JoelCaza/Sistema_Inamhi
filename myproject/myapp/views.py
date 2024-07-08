@@ -338,3 +338,37 @@ def export_to_pdf(request):
 
 def recover(request):
     return render(request, 'recover.html')
+
+def model_update(request, pk):
+    model = get_object_or_404(MyModel, pk=pk)
+    if request.method == 'POST':
+        form = MyModelForm(request.POST, request.FILES, instance=model)
+        cambio_form = CambioCustodioForm(request.POST)
+        if form.is_valid() and cambio_form.is_valid():
+            model = form.save(commit=False)
+            
+            # Asignación y guardado del código TIC
+            model.codigo_tic = request.POST.get('codigo_tic', '')  # Asegúrate de obtener el valor del campo código TIC correctamente
+
+            # Ejemplo de asignación de archivo
+            if 'archivo' in request.FILES:
+                model.archivo = request.FILES['archivo']
+            
+            model.save()
+
+            # Verificar si ya existe un objeto CambioCustodio para este modelo
+            cambio = model.cambiocustodio_set.first()
+            if not cambio:
+                cambio = CambioCustodio(modelo_relacionado=model)
+            cambio.nuevo_custodio = cambio_form.cleaned_data['nuevo_custodio']
+            cambio.cedula_nuevo_custodio = cambio_form.cleaned_data['cedula_nuevo_custodio']
+            cambio.fecha_cambio = timezone.now()  # Asigna la fecha actual
+            cambio.save()
+
+            messages.success(request, '¡Modelo actualizado correctamente!')
+            return redirect('model_list')  # Redirige a donde quieras después de actualizar el modelo
+    else:
+        form = MyModelForm(instance=model)
+        cambio_form = CambioCustodioForm()
+
+    return render(request, 'actualizar.html', {'form': form, 'cambio_custodio_form': cambio_form, 'model': model})

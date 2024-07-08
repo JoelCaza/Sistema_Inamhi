@@ -37,7 +37,7 @@ class MyModelForm(forms.ModelForm):
         model = MyModel
         fields = ['codigo_bien', 'codigo_anterior', 'codigo_provisional', 'codigo_nuevo', 'nombre_bien', 
                   'serie', 'modelo', 'marca', 'color', 'material', 'estado', 'ubicacion', 'cedula', 
-                  'custodio_actual', 'observacion', 'archivo']
+                  'custodio_actual', 'observacion', 'archivo','codigo_tic']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
