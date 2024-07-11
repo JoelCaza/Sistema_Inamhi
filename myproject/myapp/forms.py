@@ -12,6 +12,18 @@ class CustomAuthenticationForm(AuthenticationForm):
         'inactive': "Esta cuenta está inactiva.",
     }
 
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label="username", required=False)
+    password = forms.CharField(label="password", widget=forms.PasswordInput, required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Entrar'))
+
+
 class CustomUserCreationForm(UserCreationForm):
     
     class Meta:

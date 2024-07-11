@@ -45,16 +45,15 @@ main{
     /* para que las cajas esten una con otra con display:flex  */
     display: flex;
     justify-content: flex-end;
-    /* para poner un fondo difuminado  */
-    backdrop-filter: blur(10px);
+    
     /* poner color y opacidad con el 0.5 */
     background-color: RGB(114,79,152);
     border-radius: 15px;
 }
 .caja_trasera img{
     transform: translateX(95%);
-    width: 60%;
-    margin-top: -50px;
+    width: 80%;
+    margin-top: -80px;
   
 }
 .caja_trasera div{
@@ -67,7 +66,8 @@ main{
 /* para el espaciado de las letras */
 .caja_trasera div p,
 .caja_trasera div button{
-    margin-top: 30px;
+    margin-top: 100%;
+    transform: translateX(-50%);
 }
 /* titulo */
 .caja_trasera div h3{
@@ -113,9 +113,6 @@ main{
     top: -185px;
     /* para que nos deje un pequeño espacio  */
     left: 10px;
-    /* este es para al transicion al dar clic en el boton regristro  con1.275 */
-    /* transition: propiedad duracion tiempo-funcion retardo:*/
-    transition: left 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
 }
 .contenedor__login-register form{
     width: 100%;
@@ -146,8 +143,25 @@ main{
     font-size: 16px;
     outline: none;
 }
+.btn__registro-link {
+    margin-top: 20px; /* Espacio entre el formulario y el botón de registro */
+    text-align: center;
+    width: 100%;
+}
 
 .contenedor__login-register form button{
+    padding: 10px 40px;
+    /* que se despege de los input */
+    margin-top: 40px;
+    border: none;
+    font-size: 14px;
+    background: #4C3DA8;
+    color: white;
+    /* para que sepan que se peude dar clic */
+    cursor: pointer;
+    outline: none;
+}
+.contenedor__login-register a button{
     padding: 10px 40px;
     /* que se despege de los input */
     margin-top: 40px;
@@ -197,10 +211,17 @@ main{
         position: relative;
     }
     .caja_trasera img{
-        transform: translateX(0%);
-        width: 80%;
-        margin-top: -50px;
+        transform: translateX(-5%); 
+        width: 70%;
+        margin-bottom: 100px;
       
+    }
+
+    .caja_trasera  button{
+        
+        margin-bottom: 40px;
+        color: white;
+       margin-left: 150px;
     }
 }
 
