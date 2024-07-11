@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from tickets import views
-from myapp.views import register,recover
+from myapp.views import register, recover
 
 urlpatterns = [
     path('admin/', admin.site.urls),

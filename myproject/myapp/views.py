@@ -16,7 +16,7 @@ from django.contrib import messages
 from django.contrib.auth.models import Permission
 from django.db import migrations
 from reportlab.lib.units import inch
-import pytz
+
 
 
 
