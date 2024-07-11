@@ -20,6 +20,8 @@ class MyModel(models.Model):
     observacion = models.TextField(verbose_name='Observación', blank=True, null=True)
     archivo = models.FileField(upload_to='archivos/', verbose_name='Archivo Adjunto', blank=True, null=True)
     estado_registro = models.BooleanField(default=True, verbose_name='Estado de Registro')
+    codigo_tic = models.CharField(max_length=50, verbose_name='Código Tic', blank=True, null=True)
+
 
     def __str__(self):
         return self.codigo_bien
