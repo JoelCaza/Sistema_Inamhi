@@ -16,8 +16,7 @@ from django.contrib import messages
 from django.contrib.auth.models import Permission
 from django.db import migrations
 from reportlab.lib.units import inch
-
-
+import pytz
 
 
 def home(request):
@@ -281,7 +280,7 @@ def export_to_pdf(request):
     # Crear datos para la tabla en el PDF
     data = []
     column_names = ['codigo_bien', 'codigo_anterior', 'codigo_provisional', 'codigo_nuevo',
-                    'nombre_bien', 'serie', 'cedula', 'custodio_actual', 
+                    'nombre_bien', 'serie', 'cedula', 'custodio_actual','archivo', 
                     'nuevo_custodio', 'cedula_nuevo_custodio', 'fecha_cambio']
     data.append(column_names)
 
@@ -318,7 +317,7 @@ def export_to_pdf(request):
 
     # Calcular el ancho de la tabla en función del tamaño de la página
     page_width, page_height = pdf.pagesize
-    available_width = page_width * 0.95  # Usar el 95% del ancho de la página
+    available_width = page_width * 0.94 # Usar el 95% del ancho de la página
     column_width = available_width / len(column_names)
 
     # Crear la tabla en el PDF
@@ -356,8 +355,6 @@ def export_to_pdf(request):
     pdf_response['Content-Disposition'] = 'attachment; filename=Reporte.pdf'
 
     return pdf_response
-
-
 
 
 def recover(request):
