@@ -13,9 +13,9 @@ class Ticket(models.Model):
     fecha = models.DateTimeField(default=now, verbose_name='fecha')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # Otros campos que puedas necesitar...
+   # Otros campos que puedas necesitar...
 
 def __str__(self):
-    texto = "{0} ({1})"
+    texto = "{0} ({7})"
     return texto.formats(self.titulo, self.asunto, self.descripcion, self.departamento, self.estado, self.fecha) 
 
