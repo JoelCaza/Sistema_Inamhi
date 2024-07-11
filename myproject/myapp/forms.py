@@ -35,9 +35,9 @@ class CustomUserCreationForm(UserCreationForm):
 class MyModelForm(forms.ModelForm):
     class Meta:
         model = MyModel
-        fields = ['codigo_bien', 'codigo_anterior', 'codigo_provisional', 'codigo_nuevo', 'nombre_bien', 
+        fields = ['codigo_tic','codigo_bien', 'codigo_anterior', 'codigo_provisional', 'codigo_nuevo', 'nombre_bien', 
                   'serie', 'modelo', 'marca', 'color', 'material', 'estado', 'ubicacion', 'cedula', 
-                  'custodio_actual', 'observacion', 'archivo','codigo_tic']
+                  'custodio_actual', 'observacion', 'archivo']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -53,3 +53,10 @@ class CambioCustodioForm(forms.ModelForm):
     class Meta:
         model = CambioCustodio
         fields = ['nuevo_custodio', 'cedula_nuevo_custodio']
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance.pk is None:  # Si el registro no existe (es decir, estamos en la creación)
+            # Si el registro no existe (es decir, estamos en la creación)
+            for field_name in self.fields:
+                self.fields[field_name].required = False

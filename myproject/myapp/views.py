@@ -151,7 +151,7 @@ def model_create(request):
         form = MyModelForm(request.POST, request.FILES)
         if form.is_valid():
             instance = form.save(commit=False)
-            for field_name, field_value in instance._dict_.items():
+            for field_name, field_value in instance.__dict__.items():
                 if not field_value and field_name != 'id':
                     setattr(instance, field_name, 'VACÍO')
             instance.save()
@@ -223,7 +223,9 @@ def model_delete(request, pk):
 
 #Exportacion de EXCEL
 def export_to_excel(request):
-    queryset = MyModel.objects.filter(estado_registro=True)
+   
+    queryset1 = MyModel.objects.filter(estado_registro=True)
+    queryset2 = CambioCustodio.objects.filter(modelo_relacionado__in=queryset1)
 
     # Crear un libro de trabajo y una hoja de trabajo
     wb = Workbook()
@@ -232,22 +234,32 @@ def export_to_excel(request):
     # Escribir encabezados de columna
     column_names = ['codigo_bien', 'codigo_anterior', 'codigo_provisional', 'codigo_nuevo',
                     'nombre_bien', 'serie', 'modelo', 'marca', 'color', 'material', 'estado',
-                    'ubicacion', 'cedula', 'custodio_actual', 'observacion']
+                    'ubicacion', 'cedula', 'custodio_actual', 'observacion', 'nuevo_custodio', 'cedula_nuevo_custodio', 'fecha_cambio']
     ws.append(column_names)
 
-    # Escribir datos
-    for item in queryset:
-        ws.append([getattr(item, col) for col in column_names])
+    # Crear un diccionario para almacenar los datos de CambioCustodio
+    custodia_dict = {item.modelo_relacionado_id: item for item in queryset2}
+
+    # Escribir datos de MyModel y agregar datos de CambioCustodio si están disponibles
+    for item in queryset1:
+        row = [getattr(item, col) for col in column_names[:15]]  # Datos de MyModel
+        cambio = custodia_dict.get(item.id, None)
+        if cambio:
+            row.extend([cambio.nuevo_custodio, cambio.cedula_nuevo_custodio, cambio.fecha_cambio.strftime('%d-%m-%Y')])
+        else:
+            row.extend(['N/A', 'N/A', 'N/A'])
+        ws.append(row)
 
     # Crear una respuesta de HTTP con el archivo adjunto
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename=Reporte.xlsx'
     wb.save(response)
-
     return response
 
 def export_to_pdf(request):
-    queryset = MyModel.objects.filter(estado_registro=True)
+    
+    queryset1 = MyModel.objects.filter(estado_registro=True)
+    queryset2 = CambioCustodio.objects.filter(modelo_relacionado__in=queryset1)
 
     # Crear un archivo PDF
     pdf_buffer = BytesIO()
@@ -255,7 +267,6 @@ def export_to_pdf(request):
 
     # Configurar estilos para el PDF
     styles = getSampleStyleSheet()
-    # Añadir un nuevo estilo de párrafo con una fuente más pequeña (8 puntos) y un interlineado ajustado (10 puntos)
     styles.add(ParagraphStyle(name='TableStyle', fontSize=8, leading=10))
     font_size = 8  # Reducir el tamaño de la fuente para ajustarse mejor a las celdas
 
@@ -264,23 +275,22 @@ def export_to_pdf(request):
     timezone_bogota = pytz.timezone('America/Bogota')
     fecha_generacion = f"Fecha de generación: {timezone.localtime(timezone.now(), timezone_bogota).strftime('%d-%m-%Y %H:%M:%S')}"
 
-
     title_paragraph = Paragraph(title, styles['Title'])
     date_paragraph = Paragraph(fecha_generacion, styles['Normal'])
 
     # Crear datos para la tabla en el PDF
     data = []
     column_names = ['codigo_bien', 'codigo_anterior', 'codigo_provisional', 'codigo_nuevo',
-                    'nombre_bien', 'serie', 'cedula', 'custodio_actual', 'archivo', 'nuevo_custodio', 'cedula_nuevo_custodio', 'fecha_cambio']
+                    'nombre_bien', 'serie', 'cedula', 'custodio_actual', 
+                    'nuevo_custodio', 'cedula_nuevo_custodio', 'fecha_cambio']
     data.append(column_names)
 
-    # Obtener los valores de los campos para cada objeto en el queryset
-    for item in queryset:
+    # Obtener los valores de los campos para cada objeto en queryset1
+    for item in queryset1:
         row = []
-        for col in column_names:
+        for col in column_names[:9]:  # Solo hasta 'archivo'
             value = getattr(item, col, None)
             if value is None:
-                # Manejar campos relacionados (ForeignKey, OneToOneField)
                 if hasattr(item, col):
                     related_obj = getattr(item, col)
                     value = str(related_obj)
@@ -291,7 +301,20 @@ def export_to_pdf(request):
             else:
                 value = 'N/A'
             row.append(value)
+
+        # Añadir valores por defecto para las columnas de CambioCustodio
+        row.extend(['N/A', 'N/A', 'N/A'])
         data.append(row)
+
+    # Actualizar las filas con datos de CambioCustodio
+    for item in queryset2:
+        for row in data:
+            if row[0] == item.modelo_relacionado.codigo_bien:
+                row[-3] = item.nuevo_custodio
+                row[-2] = item.cedula_nuevo_custodio
+                row[-1] = item.fecha_cambio.strftime('%d-%m-%Y')
+                break
+
 
     # Calcular el ancho de la tabla en función del tamaño de la página
     page_width, page_height = pdf.pagesize
