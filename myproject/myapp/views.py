@@ -270,7 +270,7 @@ def export_to_pdf(request):
     font_size = 8  # Reducir el tamaño de la fuente para ajustarse mejor a las celdas
 
     # Añadir título y fecha de generación
-    title = "Reporte de Bienes 2024"
+    title = "Reporte de Bienes"
     timezone_bogota = pytz.timezone('America/Bogota')
     fecha_generacion = f"Fecha de generación: {timezone.localtime(timezone.now(), timezone_bogota).strftime('%d-%m-%Y %H:%M:%S')}"
 
@@ -279,9 +279,9 @@ def export_to_pdf(request):
 
     # Crear datos para la tabla en el PDF
     data = []
-    column_names = ['codigo_bien', 'codigo_anterior', 'codigo_provisional', 'codigo_nuevo',
-                    'nombre_bien', 'serie', 'cedula', 'custodio_actual','archivo', 
-                    'nuevo_custodio', 'cedula_nuevo_custodio', 'fecha_cambio']
+    column_names = ['codigo_tic','codigo_bien', 'codigo_anterior', 'codigo_provisional', 'codigo_nuevo',
+                    'nombre_bien', 'serie', 'cedula', 'custodio_actual',
+                    'nuevo_custodio', 'cedula_nuevo_custodio']
     data.append(column_names)
 
     # Obtener los valores de los campos para cada objeto en queryset1
@@ -317,7 +317,7 @@ def export_to_pdf(request):
 
     # Calcular el ancho de la tabla en función del tamaño de la página
     page_width, page_height = pdf.pagesize
-    available_width = page_width * 0.94 # Usar el 95% del ancho de la página
+    available_width = page_width * 0.8 # Usar el 95% del ancho de la página
     column_width = available_width / len(column_names)
 
     # Crear la tabla en el PDF
