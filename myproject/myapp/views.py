@@ -17,6 +17,7 @@ from django.contrib.auth.models import Permission
 from django.db import migrations
 from reportlab.lib.units import inch
 import pytz
+from openpyxl.styles import Font, Alignment
 
 
 def home(request):
@@ -230,11 +231,38 @@ def export_to_excel(request):
     wb = Workbook()
     ws = wb.active
 
+    title = 'Reporte De Registros'
+    ws.append([title])
+
+    title_cell = ws.cell(row=1, column=1)
+    title_cell.font = Font(size=25, bold=True)  # Negrita y tamaño de fuente
+    ws.merge_cells('A1:R1')  # Combinar celdas para el título
+    title_cell.alignment = Alignment(horizontal='center', vertical='center')  # Centrar texto horizontal y verticalmente
+    total_columns = 18 
+    additional_info = [
+        'INSTITUTO NACIONAL DE METEOROLOGÍA E HIDROLOGÍA - INAMHI',
+        'BIENES POR CUSTODIO',
+        'REGISTRO DE CONSTATACIÓN FÍSICA DE BIENES 2024'
+    ]
+    start_row_for_info = 2
+    for i, info in enumerate(additional_info, start=start_row_for_info):
+        # Añadir una fila en blanco para que la información adicional se pueda colocar en varias celdas
+        ws.append([''] * total_columns)
+        info_cell = ws.cell(row=i, column=1)
+        info_cell.value = info
+        info_cell.font = Font(size=14, bold=True)
+        info_cell.alignment = Alignment(horizontal='center', vertical='center')  # Centrar texto
+        ws.merge_cells(start_row=i, start_column=1, end_row=i, end_column=total_columns)
+    ws.append([''] * total_columns)
+
     # Escribir encabezados de columna
     column_names = ['codigo_bien', 'codigo_anterior', 'codigo_provisional', 'codigo_nuevo',
                     'nombre_bien', 'serie', 'modelo', 'marca', 'color', 'material', 'estado',
                     'ubicacion', 'cedula', 'custodio_actual', 'observacion', 'nuevo_custodio', 'cedula_nuevo_custodio', 'fecha_cambio']
     ws.append(column_names)
+    for cell in ws[ws.max_row]:  # Los encabezados están en la fila 3
+        cell.font = Font(bold=True)
+        cell.alignment = Alignment(horizontal='center', vertical='center')  # Centrar texto
 
     # Crear un diccionario para almacenar los datos de CambioCustodio
     custodia_dict = {item.modelo_relacionado_id: item for item in queryset2}
@@ -248,8 +276,15 @@ def export_to_excel(request):
         else:
             row.extend(['N/A', 'N/A', 'N/A'])
         ws.append(row)
+    for row in ws.iter_rows(min_row=4, max_col=5, max_row=ws.max_row):  # Empezando desde la fila 4
+        for cell in row:
+            cell.alignment = Alignment(horizontal='center', vertical='center')  # Centrar texto
 
+    column_widths = [20, 30, 20, 20, 20, 20, 20, 10, 10, 10, 10, 20, 15, 20, 15, 15, 15, 15,]  # Ajustar estos valores según tus necesidades
+    for i, width in enumerate(column_widths, start=1):
+        ws.column_dimensions[chr(64 + i)].width = width  # A, B, C, D, E corresponden a 1, 2, 3, 4, 5
     # Crear una respuesta de HTTP con el archivo adjunto
+
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename=Reporte.xlsx'
     wb.save(response)
